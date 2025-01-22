@@ -96,7 +96,7 @@ export default function Home() {
       {/* Final CTA */}
       <section className="mb-8 max-w-3xl mx-auto">
         <h2 className="text-2xl sm:text-3xl font-semibold text-[#37b50c] mb-6 text-center">
-          So, what are you thinking?
+          So, what are you waiting for?
         </h2>
         <Button 
           color="primary" 
