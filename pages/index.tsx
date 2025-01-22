@@ -104,7 +104,7 @@ export default function Home() {
           radius="full" 
           className="w-full sm:w-1/3 bg-[#37b50c] mx-auto block"
         >
-          Save taxes now
+          Save taxes 
         </Button>
       </section>
     </main>
