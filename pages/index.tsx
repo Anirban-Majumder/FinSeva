@@ -1,5 +1,5 @@
 'use client'
-
+import DefaultLayout from "@/layouts/default";
 import { Button } from "@nextui-org/button"
 import { Card } from "@nextui-org/card"
 import { Link } from "@nextui-org/link"
@@ -8,22 +8,8 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className=" mx-auto px-4 sm:px-6 lg:px-8 py-6 bg-white min-h-screen">
-      {/* Header */}
-      <header className="flex justify-between items-center mb-12">
-        <Link href="/" className="font-bold text-xl">
-          <Image src="/logo.jpeg" alt="FinSeva" width={120} height={40} />
-        </Link>
-        <Button isIconOnly variant="light" aria-label="Menu" className="sm:hidden">
-          <Menu className="w-6 h-6 text-[#37b50c]" />
-        </Button>
-        <nav className="hidden sm:flex space-x-4">
-          <Link href="#" className="text-gray-600 hover:text-gray-900">Home</Link>
-          <Link href="#" className="text-gray-600 hover:text-gray-900">About</Link>
-          <Link href="#" className="text-gray-600 hover:text-gray-900">Services</Link>
-          <Link href="#" className="text-gray-600 hover:text-gray-900">Contact</Link>
-        </nav>
-      </header>
+    
+      <DefaultLayout>
 
       {/* Hero Section */}
       <section className="mb-16 mt-32">
@@ -107,7 +93,7 @@ export default function Home() {
           Save taxes 
         </Button>
       </section>
-    </main>
+      </DefaultLayout>
   );
 }
 
