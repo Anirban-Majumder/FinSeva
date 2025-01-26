@@ -30,7 +30,7 @@ const SignUp = () => {
         last_name: form.lastName,
         phone: form.phone,
       });
-      router.push('/dashboard');
+      router.push('/userInfo');
     }
     if (error) alert(error.message);
   };
