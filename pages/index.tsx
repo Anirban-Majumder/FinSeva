@@ -27,6 +27,7 @@ export default function Home() {
               size="lg" 
               radius="full" 
               className="w-full sm:w-1/3 bg-[#37b50c] mx-auto"
+              href="/signup"
             >
               Save taxes now
             </Button>
