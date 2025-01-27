@@ -9,44 +9,44 @@ export interface ECA {
   export const ecas: ECA[] = [
     {
       id: 1,
-      name: "eCA-1",
-      fees: "$50",
+      name: "Ashok Ghosh",
+      fees: "₹5000",
       language: "English",
       description: "knowledge/certifications, experiences,etc."
     },
     {
       id: 2,
-      name: "eCA-2",
-      fees: "$100",
+      name: "Rohit Mukherjee",
+      fees: "₹5900",
       language: "Hindi",
       description: "knowledge/certifications, experiences,etc."
     },
     {
       id: 3,
-      name: "eCA-3",
-      fees: "$150",
-      language: "Bengali",
+      name: "Priya Sharma",
+      fees: "₹6250",
+      language: "English",
       description: "knowledge/certifications, experiences,etc."
     },
     {
       id: 4,
-      name: "eCA-4",
-      fees: "$75",
+      name: "Partha Pramanik",
+      fees: "₹6500",
       language: "English",
       description: "knowledge/certifications, experiences,etc."
     },
     {
       id: 5,
-      name: "eCA-5",
-      fees: "$50",
-      language: "English",
+      name: "Ayesha Patel",
+      fees: "₹5700",
+      language: "Hindi",
       description: "knowledge/certifications, experiences,etc."
     },
     {
       id: 6,
-      name: "eCA-6",
-      fees: "$120",
-      language: "English",
+      name: "Debashis Basu",
+      fees: "₹7200",
+      language: "English and Hindi",
       description: "knowledge/certifications, experiences,etc."
     }
   ];
