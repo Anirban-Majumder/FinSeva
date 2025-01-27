@@ -1,15 +1,14 @@
 'use client'
 import DefaultLayout from "@/layouts/default";
-import { Button } from "@nextui-org/button"
-import { Card } from "@nextui-org/card"
-import { Link } from "@nextui-org/link"
-import { ShieldCheck, Menu } from 'lucide-react'
-import Image from 'next/image'
+import { Button } from "@nextui-org/button";
+import { Card } from "@nextui-org/card";
+import { Link } from "@nextui-org/link";
+import { ShieldCheck, Menu } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Home() {
   return (
-    
-      <DefaultLayout>
+    <DefaultLayout>
 
       {/* Hero Section */}
       <section className="mb-16 mt-32">
@@ -19,7 +18,7 @@ export default function Home() {
             <h1 className="text-5xl sm:text-6xl font-bold text-[#37b50c] mb-3">
               FinSeva
             </h1>
-            <p className="text-2xl sm:text-3xl text-black font-semibold mb-6">
+            <p className="text-2xl sm:text-3xl  font-semibold mb-6">
               File <span className="text-[#37b50c]">taxes</span> the way you want
             </p>
             <Button 
@@ -36,13 +35,13 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="text-center mb-16 bg-[#EEF2FF] text-black py-8 px-4 rounded-3xl">
+      <section className="text-center mb-16 bg-[#EEF2FF]      py-8 px-4 rounded-3xl">
         <div className="max-w-4xl mx-auto">
-          <p className="mb-2">More than</p>
+          <p className="mb-2 text-green-500">More than</p>
           <p className="text-4xl sm:text-5xl font-bold text-[#37b50c] mb-2">42000</p>
-          <p className="mb-2">people from over</p>
+          <p className="mb-2 text-green-500">people from over</p>
           <p className="text-4xl sm:text-5xl font-bold text-[#37b50c] mb-2">2000</p>
-          <p className="mb-2">towns trust</p>
+          <p className="mb-2 text-green-500">towns trust</p>
           <p className="text-4xl sm:text-5xl text-[#37b50c] font-bold">FinSeva</p>
         </div>
       </section>
@@ -56,10 +55,10 @@ export default function Home() {
 
       {/* Tax Liability Section */}
       <section className="mb-16 max-w-3xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-semibold mb-6 text-black text-center">
+        <h2 className="text-2xl sm:text-3xl font-semibold mb-6      text-center">
           Decrease your tax liability up to 69% by:
         </h2>
-        <Card className="p-6 bg-[#EEF2FF]">
+        <Card className="p-6 bg-[#EEF2FF] rounded-none w-full">
           <h3 className="font-semibold mb-2 text-lg sm:text-xl">1. Your personal tax support</h3>
           <p className="text-gray-600">lorem ipsum</p>
         </Card>
@@ -71,10 +70,10 @@ export default function Home() {
           Security and Privacy
         </h2>
         <div className="flex items-start gap-4">
-          <div className="p-3 bg-[#EEF2FF] rounded-xl">
+          <div className="p-3 bg-[#EEF2FF] rounded-none w-full">
             <ShieldCheck className="w-6 h-6 text-[#37b50c]" />
           </div>
-          <p className="text-sm sm:text-base text-black">
+          <p className="text-sm sm:text-base     ">
             Your Safety is our primary Concern. Having said that, users can rest assured that your information is encrypted and protected.
           </p>
         </div>
@@ -94,7 +93,7 @@ export default function Home() {
           Save taxes 
         </Button>
       </section>
-      </DefaultLayout>
+
+    </DefaultLayout>
   );
 }
-
