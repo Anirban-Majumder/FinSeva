@@ -10,42 +10,42 @@ export interface ECA {
     {
       id: 1,
       name: "Ashok Ghosh",
-      fees: "₹5000",
+      fees: "₹3000",
       language: "English",
       description: "knowledge/certifications, experiences,etc."
     },
     {
       id: 2,
       name: "Rohit Mukherjee",
-      fees: "₹5900",
+      fees: "₹2900",
       language: "Hindi",
       description: "knowledge/certifications, experiences,etc."
     },
     {
       id: 3,
       name: "Priya Sharma",
-      fees: "₹6250",
+      fees: "₹3250",
       language: "English",
       description: "knowledge/certifications, experiences,etc."
     },
     {
       id: 4,
       name: "Partha Pramanik",
-      fees: "₹6500",
+      fees: "₹3500",
       language: "English",
       description: "knowledge/certifications, experiences,etc."
     },
     {
       id: 5,
       name: "Ayesha Patel",
-      fees: "₹5700",
+      fees: "₹2700",
       language: "Hindi",
       description: "knowledge/certifications, experiences,etc."
     },
     {
       id: 6,
       name: "Debashis Basu",
-      fees: "₹7200",
+      fees: "₹4200",
       language: "English and Hindi",
       description: "knowledge/certifications, experiences,etc."
     }
