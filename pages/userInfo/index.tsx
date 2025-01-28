@@ -1,7 +1,9 @@
+// @ts-nocheck
 import { useState } from 'react';
 import DefaultLayout from '@/layouts/default';
 import { Card } from '@nextui-org/react';
 import { supabase } from '../../lib/supabaseClient';
+import { useRouter } from 'next/router';
 
 const questions = [
   { id: 1, label: "Gross salary", type: "text" },
@@ -11,7 +13,7 @@ const questions = [
 ];
 
 export default function GetUserInfo() {
-
+  const router = useRouter();
   const [responses, setResponses] = useState({});
   const [error, setError] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -52,6 +54,7 @@ export default function GetUserInfo() {
       } else {
         setError('');
         setIsSubmitted(true);  // Set the submitted state to true
+        router.push('/dashboard');
       }
     } catch (error) {
       setError('An error occurred. Please try again.');

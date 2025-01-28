@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState } from 'react';
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";

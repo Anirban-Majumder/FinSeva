@@ -1,4 +1,3 @@
-import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { supabase } from '../../lib/supabaseClient';
 import { useRouter } from 'next/router';
@@ -39,7 +38,7 @@ const SignUp = () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'http://localhost:3000/dashboard'
+        redirectTo: 'http://localhost:3000/userInfo'
       }
     });
     if (error) alert(error.message)

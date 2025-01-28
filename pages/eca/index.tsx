@@ -1,10 +1,8 @@
-'use client'
-
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Card, CardBody, CardFooter } from "@nextui-org/react";
 import { useState, useEffect } from "react";
-import { ecas, ECA } from "./data";
+import { ecas, ECA } from "@/lib/data";
 
 export default function DocsPage() {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();

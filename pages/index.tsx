@@ -1,12 +1,11 @@
-'use client'
 import DefaultLayout from "@/layouts/default";
 import { Button } from "@nextui-org/button";
 import { Card } from "@nextui-org/card";
-import { Link } from "@nextui-org/link";
-import { ShieldCheck, Menu } from 'lucide-react';
-import Image from 'next/image';
+import { ShieldCheck } from 'lucide-react';
+import { useRouter } from 'next/router';
 
 export default function Home() {
+  const router = useRouter();
   return (
     <DefaultLayout>
 
@@ -26,7 +25,8 @@ export default function Home() {
               size="lg" 
               radius="full" 
               className="w-full sm:w-1/3 bg-[#37b50c] mx-auto"
-              href="/signup"
+              onClick={() => {router.push('/signup');}
+              } 
             >
               Save taxes now
             </Button>
@@ -89,6 +89,7 @@ export default function Home() {
           size="lg" 
           radius="full" 
           className="w-full sm:w-1/3 bg-[#37b50c] mx-auto block"
+          onClick={() => {router.push('/signup');}}
         >
           Save taxes 
         </Button>

@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -10,16 +12,42 @@ import {
 import { Link } from "@nextui-org/link";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
+import { usePathname } from 'next/navigation';
 import clsx from "clsx";
+import React, { useEffect, useState, useContext } from 'react';
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { Logo } from "@/components/icons";
+import { SessionContext } from '@/lib/usercontext';
 
 export const Navbar = () => {
+  const session = useContext(SessionContext);
+  const pathname = usePathname();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(!!session);
+  }, [session]);
+
+  const filteredNavItems = siteConfig.navItems.filter(item => 
+    !(isLoggedIn && (item.label === "Login" || item.label === "Signup")) &&
+    (isLoggedIn || (item.label !== "Dashboard" && item.label !== "Recommendations" && item.label !== "Logout"))
+  );
+  
+  const filteredNavMenuItems = [
+    ...filteredNavItems,
+    ...(isLoggedIn ? siteConfig.navMenuItems : [])
+  ];
 
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
+    <NextUINavbar 
+      maxWidth="xl" 
+      position="sticky"
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
+    >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
@@ -36,8 +64,8 @@ export const Navbar = () => {
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
         </NavbarItem>
-        <div className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
+        <div className="hidden sm:flex gap-4 justify-start ml-2">
+          {filteredNavItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
                 className={clsx(
@@ -46,6 +74,7 @@ export const Navbar = () => {
                 )}
                 color="foreground"
                 href={item.href}
+                aria-current={pathname === item.href ? "page" : undefined}
               >
                 {item.label}
               </NextLink>
@@ -61,18 +90,19 @@ export const Navbar = () => {
 
       <NavbarMenu>
         <div className="mx-4 mt-2 flex flex-col gap-2">
-          {[ ...siteConfig.navItems, ...siteConfig.navMenuItems].map((item: { label: string; href: string }, index: number) => (
+          {filteredNavMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
                 color={
                   index === 2
                     ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
+                    : index === filteredNavMenuItems.length - 1
                       ? "danger"
                       : "foreground"
                 }
-                href= {item.href}
+                href={item.href}
                 size="lg"
+                aria-current={pathname === item.href ? "page" : undefined}
               >
                 {item.label}
               </Link>
@@ -83,3 +113,4 @@ export const Navbar = () => {
     </NextUINavbar>
   );
 };
+

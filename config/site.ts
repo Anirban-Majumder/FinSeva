@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Next.js + NextUI",
+  name: "FinSeva",
   description: "Make beautiful websites regardless of your design experience.",
   navItems: [
     {
@@ -9,8 +9,16 @@ export const siteConfig = {
       href: "/",
     },
     {
+      label: "Dashboard",
+      href: "/dashboard",
+    },
+    {
       label: "Contact",
       href: "/Contact",
+    },
+    {
+      label: "Recommendations",
+      href: "/recommendation",
     },
     {
       label: "Login",
@@ -19,6 +27,10 @@ export const siteConfig = {
     {
       label: "Signup",
       href: "/signup",
+    },    
+    {
+      label: "Logout",
+      href: "/logout",
     },
   ],
   navMenuItems: [
