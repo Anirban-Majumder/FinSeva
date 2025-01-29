@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { useState } from 'react';
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
@@ -23,6 +21,7 @@ export default function DocsPage() {
   const [itrForm, setItrForm] = useState('itr1');
   const [filingReason, setFilingReason] = useState('taxableIncome');
   const [filingCondition, setFilingCondition] = useState([]);
+  const [natureOfEmployment, setNatureOfEmployment] = useState(''); 
   const [exemptions, setExemptions] = useState({
     travel: '',
     compensatory: '',
@@ -52,8 +51,8 @@ export default function DocsPage() {
     <DefaultLayout>
       <h2 className="text-2xl mb-4">E-Filing : Income Tax Returns</h2>
 
-      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6">
-        <h3 className="text-xl mb-4">Log In</h3>
+      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
+        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4  ">Log In</h3>
         <Input
           className="mb-4"
           label="User ID (PAN number)"
@@ -74,8 +73,8 @@ export default function DocsPage() {
         />
       </Card>
 
-      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6">
-        <h3 className="text-xl mb-4">E-File: Income Tax Returns</h3>
+      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4 ">
+        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4  ">E-File: Income Tax Returns</h3>
 
         <Select
           className="mb-4"
@@ -84,6 +83,7 @@ export default function DocsPage() {
           onChange={handleAssessmentYearChange}
           fullWidth
           bordered={false}
+          color="inherit" // Set text color to inherit from theme
         >
           <SelectItem key="2024-25" value="2024-25">
             2024-25 (Current AY)
@@ -96,45 +96,85 @@ export default function DocsPage() {
           </SelectItem>
         </Select>
 
-        <RadioGroup
+        <Select
           className="mb-4"
           label="Select Mode of Filing"
           value={filingMode}
           onChange={setFilingMode}
+          fullWidth
           bordered={false}
+          color="inherit" // Set text color to inherit from theme
         >
-          <Radio value="online">Online (Recommended)</Radio>
-          <Radio value="offline">Offline</Radio>
-        </RadioGroup>
+          <SelectItem key="online" value="online">
+            Online (Recommended)
+          </SelectItem>
+          <SelectItem key="offline" value="offline">
+            Offline
+          </SelectItem>
+        </Select>
 
-        <RadioGroup className="mb-4" value={status} onChange={setStatus} bordered={false}>
-          <Radio value="individual">Individual</Radio>
-          <Radio value="huf">HUF</Radio>
-          <Radio value="others">Others</Radio>
-          <Radio value="notApplicable">Not Applicable (e.g., Family Pension, etc.)</Radio>
-          </RadioGroup>
-
-        <RadioGroup className="mb-4" value={itrForm} onChange={setItrForm} bordered={false}>
-          <Radio value="itr1">ITR 1 (for salaried employees)</Radio>
-          <Radio value="itr2">ITR 2</Radio>
-          <Radio value="itr3">ITR 3</Radio>
-          <Radio value="itr4">ITR 4</Radio>
-        </RadioGroup>
-
-        <RadioGroup
+        <Select
           className="mb-4"
+          label="Select Status"
+          value={status}
+          onChange={setStatus}
+          fullWidth
+          bordered={false}
+          color="inherit" // Set text color to inherit from theme
+        >
+          <SelectItem key="individual" value="individual">
+            Individual
+          </SelectItem>
+          <SelectItem key="huf" value="huf">
+            HUF
+          </SelectItem>
+          <SelectItem key="others" value="others">
+            Others
+          </SelectItem>
+        </Select>
+
+        <Select
+          className="mb-4"
+          label="Select ITR Form"
+          value={itrForm}
+          onChange={setItrForm}
+          fullWidth
+          bordered={false}
+          color="inherit" // Set text color to inherit from theme
+        >
+          <SelectItem key="itr1" value="itr1">
+            ITR 1 (for salaried employees)
+          </SelectItem>
+          <SelectItem key="itr2" value="itr2">
+            ITR 2
+          </SelectItem>
+          <SelectItem key="itr3" value="itr3">
+            ITR 3
+          </SelectItem>
+          <SelectItem key="itr4" value="itr4">
+            ITR 4
+          </SelectItem>
+        </Select>
+
+        <Select
+          className="mb-4"
+          label="Select Filing Reason"
           value={filingReason}
           onChange={setFilingReason}
+          fullWidth
           bordered={false}
+          color="inherit" // Set text color to inherit from theme
         >
-          <Radio value="taxableIncome">
+          <SelectItem key="taxableIncome" value="taxableIncome">
             Taxable income is more than basic exemption limit
-          </Radio>
-          <Radio value="condition">
+          </SelectItem>
+          <SelectItem key="condition" value="condition">
             Filing due to conditions as per Section 139(1)
-          </Radio>
-          <Radio value="others">Others</Radio>
-        </RadioGroup>
+          </SelectItem>
+          <SelectItem key="others" value="others">
+            Others
+          </SelectItem>
+        </Select>
         {filingReason === 'condition' && (
           <div className="mb-4">
             <Checkbox value="foreignTravel">
@@ -150,9 +190,9 @@ export default function DocsPage() {
         )}
       </Card>
 
-      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6">
-        <h3 className="text-xl mb-4">Personal Information</h3>
-        <h4 className="text-lg mb-2">Profile</h4>
+      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
+        <h3 className="text-xl mb-4  text-blue-500 underline decoration-double  ">Personal Information</h3>
+        <h4 className="text-lg mb-2 text-blue-500 underline decoration-double  ">Profile</h4>
         <Input
           className="mb-4"
           label="First Name"
@@ -191,7 +231,7 @@ export default function DocsPage() {
           placeholder="Enter your Aadhaar Enrollment ID"
         />
 
-        <h4 className="text-lg mt-4 mb-2">Contact</h4>
+        <h4 className="text-lg mt-4 mb-2 text-blue-500 underline decoration-double  ">Contact</h4>
         <Input
           className="mb-4"
           label="Address"
@@ -216,22 +256,49 @@ export default function DocsPage() {
           placeholder="Enter your Email Address"
         />
 
-        <h4 className="text-lg mt-4 mb-2">Nature of Employment</h4>
-        <RadioGroup className="mb-4" bordered={false}>
-          <Radio value="centralGovt">Central Govt</Radio>
-          <Radio value="stateGovt">State Govt</Radio>
-          <Radio value="psu">Public Sector Undertaking</Radio>
-          <Radio value="cgPensioner">CG Pensioner</Radio>
-          <Radio value="sgPensioner">SG Pensioner</Radio>
-          <Radio value="psuPensioner">PSU Pensioner</Radio>
-          <Radio value="otherPensioners">Other Pensioners</Radio>
-          <Radio value="others">Others</Radio>
-          <Radio value="notApplicable">Not Applicable (e.g., Family Pension, etc.)</Radio>
-        </RadioGroup>
+        <h4 className="text-lg mt-4 mb-2 text-blue-500 underline decoration-double  ">Nature of Employment</h4>
+        
+        <Select
+  className="mb-4"
+  label="Nature of Employment"
+  value={natureOfEmployment} // Assuming you have a state variable for this
+  onChange={(value) => setNatureOfEmployment(value)} 
+  fullWidth
+  bordered={false}
+  color="inherit" // Set text color to inherit from theme
+>
+  <SelectItem key="centralGovt" value="centralGovt">
+    Central Govt
+  </SelectItem>
+  <SelectItem key="stateGovt" value="stateGovt">
+    State Govt
+  </SelectItem>
+  <SelectItem key="psu" value="psu">
+    Public Sector Undertaking
+  </SelectItem>
+  <SelectItem key="cgPensioner" value="cgPensioner">
+    CG Pensioner
+  </SelectItem>
+  <SelectItem key="sgPensioner" value="sgPensioner">
+    SG Pensioner
+  </SelectItem>
+  <SelectItem key="psuPensioner" value="psuPensioner">
+    PSU Pensioner
+  </SelectItem>
+  <SelectItem key="otherPensioners" value="otherPensioners">
+    Other Pensioners
+  </SelectItem>
+  <SelectItem key="others" value="others">
+    Others
+  </SelectItem>
+  <SelectItem key="notApplicable" value="notApplicable">
+    Not Applicable (e.g., Family Pension, etc.)
+  </SelectItem>
+</Select>
       </Card>
 
-      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6">
-        <h3 className="text-xl mb-4">Gross Total Income</h3>
+      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
+        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 ">Gross Total Income</h3>
         <Input
           className="mb-4"
           label="Gross Salary"
@@ -269,8 +336,8 @@ export default function DocsPage() {
         />
       </Card>
 
-      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6">
-        <h3 className="text-xl mb-4">Total Deductions</h3>
+      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
+        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 ">Total Deductions</h3>
         <Input
           className="mb-4"
           label="Donations Paid"
@@ -329,8 +396,8 @@ export default function DocsPage() {
         />
       </Card>
 
-      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6">
-        <h3 className="text-xl mb-4">Tax Paid</h3>
+      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
+        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 ">Tax Paid</h3>
         <Input
           className="mb-4"
           label="Income Tax Paid"
@@ -361,8 +428,8 @@ export default function DocsPage() {
         />
       </Card>
 
-      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6">
-        <h3 className="text-xl mb-4">Total Tax Liability</h3>
+      <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
+        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 ">Total Tax Liability</h3>
         <Input
           className="mb-4"
           label="Taxable Income"

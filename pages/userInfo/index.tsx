@@ -13,13 +13,8 @@ const questions = [
 ];
 
 export default function GetUserInfo() {
-<<<<<<< HEAD
   const router = useRouter();
   const [responses, setResponses] = useState({});
-=======
-
-  const [responses, setResponses] = useState<{ [key: number]: string | boolean }>({});
->>>>>>> 8efc6bb (made ui better)
   const [error, setError] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
