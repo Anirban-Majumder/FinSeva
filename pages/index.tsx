@@ -94,7 +94,6 @@ export default function Home() {
           Save taxes 
         </Button>
       </section>
-      <CopilotSideBarComponent />
     </DefaultLayout>
   );
 }

@@ -4,7 +4,7 @@ import { Head } from "./head";
 import { CopilotKit } from "@copilotkit/react-core"; 
 import { Navbar } from "@/components/navbar";
 import { ThemeProvider } from 'next-themes'
-
+import CopilotSideBarComponent from "@/components/ChatSideBar";
 export default function DefaultLayout({
   children,
 }: {
@@ -17,8 +17,9 @@ export default function DefaultLayout({
       <main className="container mx-auto max-w-7xl px-6 flex-grow pt-16">
       <CopilotKit runtimeUrl="/api/copilotkit">
       
-    <ThemeProvider>{children}</ThemeProvider>
-        
+      <ThemeProvider>{children}</ThemeProvider>
+      
+      <CopilotSideBarComponent />
       </CopilotKit>
       </main>
     </div>
