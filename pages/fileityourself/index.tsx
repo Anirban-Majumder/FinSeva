@@ -1,12 +1,205 @@
-// @ts-nocheck
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabaseClient'; // Make sure to configure Supabase client
 import DefaultLayout from "@/layouts/default";
-import React, { useEffect } from 'react'
-import { Card, Input, Select, SelectItem, Checkbox, Button } from '@nextui-org/react';
-import { useRouter } from 'next/router';
-export default function DocsPage() { const [userId, setUserId] = useState('');const router = useRouter(); ;const [password, setPassword] = useState(''); const [assessmentYear, setAssessmentYear] = useState('2024-25'); const [filingMode, setFilingMode] = useState('online'); const [status, setStatus] = useState('individual'); const [itrForm, setItrForm] = useState('itr1'); const [filingReason, setFilingReason] = useState('taxableIncome'); const [filingCondition, setFilingCondition] = useState([]); const [natureOfEmployment, setNatureOfEmployment] = useState(''); const [exemptions, setExemptions] = useState({ travel: '', compensatory: '', houseRent: '', leaveTravel: '', }); const [grossSalary, setGrossSalary] = useState(''); const [exemptAllowances, setExemptAllowances] = useState(''); const [reliefIncome, setReliefIncome] = useState(''); const [netSalary, setNetSalary] = useState(''); const [deductions16, setDeductions16] = useState(''); const [donationsPaid, setDonationsPaid] = useState(''); const [scientificResearch, setScientificResearch] = useState(''); const [deduction80GG, setDeduction80GG] = useState(''); const [providentFund, setProvidentFund] = useState(''); const [deduction80CCD2, setDeduction80CCD2] = useState(''); const [medicalInsurance, setMedicalInsurance] = useState(''); const [higherEducationLoan, setHigherEducationLoan] = useState(''); const [savingsInterest, setSavingsInterest] = useState(''); const [incomeTaxPaid, setIncomeTaxPaid] = useState(''); const [tds, setTds] = useState(''); const [selfAssessmentTax, setSelfAssessmentTax] = useState(''); const [advanceTax, setAdvanceTax] = useState(''); const [taxableIncome, setTaxableIncome] = useState(''); const [taxPayable, setTaxPayable] = useState(''); const [rebate, setRebate] = useState(''); const [surcharge, setSurcharge] = useState(''); const [healthCess, setHealthCess] = useState(''); const [totalTaxLiability, setTotalTaxLiability] = useState(''); const [error, setError] = useState(''); const [isSubmitted, setIsSubmitted] = useState(false); useEffect(() => { const fetchData = async () => { const { data: { user } } = await supabase.auth.getUser(); if (user) { const { data, error } = await supabase .from('profiles') .select('*') .eq('id', user.id) .single(); if (error) { setError('Failed to fetch data.'); } else { // Populate form fields with fetched data 
-setUserId(data.userId); setPassword(data.password); setAssessmentYear(data.assessmentYear); setFilingMode(data.filingMode); setStatus(data.status); setItrForm(data.itrForm); setFilingReason(data.filingReason); setFilingCondition(data.filingCondition || []); setNatureOfEmployment(data.natureOfEmployment); setExemptions(data.exemptions || {}); setGrossSalary(data.grossSalary); setExemptAllowances(data.exemptAllowances); setReliefIncome(data.reliefIncome); setNetSalary(data.netSalary); setDeductions16(data.deductions16); setDonationsPaid(data.donationsPaid); setScientificResearch(data.scientificResearch); setDeduction80GG(data.deduction80GG); setProvidentFund(data.providentFund); setDeduction80CCD2(data.deduction80CCD2); setMedicalInsurance(data.medicalInsurance); setHigherEducationLoan(data.higherEducationLoan); setSavingsInterest(data.savingsInterest); setIncomeTaxPaid(data.incomeTaxPaid); setTds(data.tds); setSelfAssessmentTax(data.selfAssessmentTax); setAdvanceTax(data.advanceTax); setTaxableIncome(data.taxableIncome); setTaxPayable(data.taxPayable); setRebate(data.rebate); setSurcharge(data.surcharge); setHealthCess(data.healthCess); setTotalTaxLiability(data.totalTaxLiability); } } }; fetchData(); }, []); const handleAssessmentYearChange = (event) => { setAssessmentYear(event.target.value); }; const handleFilingConditionChange = (value) => { setFilingCondition( value.includes('condition') ? [...value, ...filingCondition] : value ); }; const handleExemptionChange = (field, value) => { setExemptions((prev) => ({ ...prev, [field]: value })); }; const isFormValid = () => { return userId && password && assessmentYear && filingMode && status && itrForm && filingReason; }; const handleSubmit = async (e) => { e.preventDefault(); if (!isFormValid()) { setError('Please fill out all required fields.'); return; } try { const { data: { user } } = await supabase.auth.getUser(); if (!user) { throw new Error('User not found'); } const { data, error } = await supabase .from('income_tax_returns') .update({ id: user.id, pan:userId, password:password,ay:assessmentYear, mode_of_filing:filingMode,status:status,itr_form:itrForm, filingReason,filing_reason:filingCondition,nature_of_employement:natureOfEmployment,  exempt_alloeances:exemptAllowances, income_claimed_for_relief_from_taxation_us_89a:reliefIncome,net_salary: netSalary,deduction_us_16:deductions16,donations_paid: donationsPaid,scientific_research_or_rural_devolopment: scientificResearch,deduction_section_80gg: deduction80GG,employees_share_of_provident_fund:providentFund, deduction_under_section_80_ccd2: deduction80CCD2, medical_insurance_premium:medicalInsurance,interest_on_higher_education: higherEducationLoan, interest_on_savings_bank_account:savingsInterest,income_tex_paid:incomeTaxPaid,tds:tds,self_aseesment_tax:selfAssessmentTax,advance_tax: advanceTax,taxable_income:taxableIncome,tax_payable: taxPayable,rebate: rebate,surcharge: surcharge,health_and_education_cess: healthCess,total_tax_liability: totalTaxLiability, }); if (error) { setError('Failed to submit data. Please try again.'); } else { setError(''); setIsSubmitted(true);router.push('/dashboard'); } } catch (error) { setError('An error occurred. Please try again.');}};
+import { 
+  Card, 
+  Input, 
+  Select, 
+  SelectItem, 
+  Checkbox, 
+  Button, 
+  Text, 
+  Grid, 
+  Col, 
+  Row 
+} from '@nextui-org/react';
+
+const DocsPage = () => {
+  const router = useRouter();
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+  const [assessmentYear, setAssessmentYear] = useState('2024-25');
+  const [filingMode, setFilingMode] = useState('online');
+  const [status, setStatus] = useState('individual');
+  const [itrForm, setItrForm] = useState('itr1');
+  const [filingReason, setFilingReason] = useState('taxableIncome');
+  const [filingCondition, setFilingCondition] = useState([]);
+  const [natureOfEmployment, setNatureOfEmployment] = useState(''); 
+  const [grossSalary, setGrossSalary] = useState('');
+  const [exemptAllowances, setExemptAllowances] = useState('');
+  const [reliefIncome, setReliefIncome] = useState('');
+  const [netSalary, setNetSalary] = useState('');
+  const [deductions16, setDeductions16] = useState('');
+  const [donationsPaid, setDonationsPaid] = useState('');
+  const [scientificResearch, setScientificResearch] = useState('');
+  const [deduction80GG, setDeduction80GG] = useState('');
+  const [providentFund, setProvidentFund] = useState('');
+  const [deduction80CCD2, setDeduction80CCD2] = useState('');
+  const [medicalInsurance, setMedicalInsurance] = useState('');
+  const [higherEducationLoan, setHigherEducationLoan] = useState('');
+  const [savingsInterest, setSavingsInterest] = useState('');
+  const [incomeTaxPaid, setIncomeTaxPaid] = useState('');
+  const [tds, setTds] = useState('');
+  const [selfAssessmentTax, setSelfAssessmentTax] = useState('');
+  const [advanceTax, setAdvanceTax] = useState('');
+  const [taxableIncome, setTaxableIncome] = useState('');
+  const [taxPayable, setTaxPayable] = useState('');
+  const [rebate, setRebate] = useState('');
+  const [surcharge, setSurcharge] = useState('');
+  const [healthCess, setHealthCess] = useState('');
+  const [totalTaxLiability, setTotalTaxLiability] = useState('');
+  const [error, setError] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        try {
+          const { data, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', user.id)
+            .single();
+
+          if (error) {
+            setError('Failed to fetch data.');
+            console.error('Error fetching data:', error); 
+          } else {
+            // Populate form fields with fetched data
+            setUserId(data.userId || ''); 
+            setPassword(data.password || ''); 
+            setAssessmentYear(data.assessmentYear || '2024-25'); 
+            setFilingMode(data.filingMode || 'online'); 
+            setStatus(data.status || 'individual'); 
+            setItrForm(data.itrForm || 'itr1'); 
+            setFilingReason(data.filingReason || 'taxableIncome'); 
+            setFilingCondition(data.filingCondition || []); 
+            setNatureOfEmployment(data.natureOfEmployment || ''); 
+            setGrossSalary(data.grossSalary || ''); 
+            setExemptAllowances(data.exemptAllowances || ''); 
+            setReliefIncome(data.reliefIncome || ''); 
+            setNetSalary(data.netSalary || ''); 
+            setDeductions16(data.deductions16 || ''); 
+            setDonationsPaid(data.donationsPaid || ''); 
+            setScientificResearch(data.scientificResearch || ''); 
+            setDeduction80GG(data.deduction80GG || ''); 
+            setProvidentFund(data.providentFund || ''); 
+            setDeduction80CCD2(data.deduction80CCD2 || ''); 
+            setMedicalInsurance(data.medicalInsurance || ''); 
+            setHigherEducationLoan(data.higherEducationLoan || ''); 
+            setSavingsInterest(data.savingsInterest || ''); 
+            setIncomeTaxPaid(data.incomeTaxPaid || ''); 
+            setTds(data.tds || ''); 
+            setSelfAssessmentTax(data.selfAssessmentTax || ''); 
+            setAdvanceTax(data.advanceTax || ''); 
+            setTaxableIncome(data.taxableIncome || ''); 
+            setTaxPayable(data.taxPayable || ''); 
+            setRebate(data.rebate || ''); 
+            setSurcharge(data.surcharge || ''); 
+            setHealthCess(data.healthCess || ''); 
+            setTotalTaxLiability(data.totalTaxLiability || ''); 
+          }
+        } catch (error) {
+          setError('An error occurred while fetching data.');
+          console.error('Error fetching data:', error); 
+        }
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleAssessmentYearChange = (event) => {
+    setAssessmentYear(event.target.value);
+  };
+
+  const handleFilingConditionChange = (value) => {
+    setFilingCondition(value.includes('condition') ? [...value, ...filingCondition] : value);
+  };
+
+  // ... (Other handlers)
+
+  const isFormValid = () => {
+    // Implement more robust validation logic here
+    return (
+      userId && 
+      password && 
+      assessmentYear && 
+      filingMode && 
+      status && 
+      itrForm && 
+      filingReason 
+      // Add more validation checks as needed
+    );
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!isFormValid()) {
+      setError('Please fill out all required fields.');
+      return;
+    }
+
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      const { data, error } = await supabase
+        .from('income_tax_returns')
+        .update({ 
+          userId, 
+          password, 
+          assessmentYear, 
+          filingMode, 
+          status, 
+          itrForm, 
+          filingReason, 
+          filingCondition, 
+          natureOfEmployment, 
+          grossSalary, 
+          exemptAllowances, 
+          reliefIncome, 
+          netSalary, 
+          deductions16, 
+          donationsPaid, 
+          scientificResearch, 
+          deduction80GG, 
+          providentFund, 
+          deduction80CCD2, 
+          medicalInsurance, 
+          higherEducationLoan, 
+          savingsInterest, 
+          incomeTaxPaid, 
+          tds, 
+          selfAssessmentTax, 
+          advanceTax, 
+          taxableIncome, 
+          taxPayable, 
+          rebate, 
+          surcharge, 
+          healthCess, 
+          totalTaxLiability 
+        })
+        .eq('id', user.id); 
+
+      if (error) {
+        setError('Failed to submit data. Please try again.');
+        console.error('Error submitting data:', error); 
+      } else {
+        setError(''); 
+        setIsSubmitted(true);
+        router.push('/dashboard'); 
+      }
+    } catch (error) {
+      setError('An error occurred. Please try again.');
+      console.error('Error submitting data:', error); 
+    }
+  }
  
   return (
     <DefaultLayout>
