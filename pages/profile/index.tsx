@@ -41,18 +41,18 @@ const ProfileWidget = () => {
     <DefaultLayout>
       <Card className="max-w-sm mx-auto bg-white dark:bg-gray-800 text-black dark:text-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
         <div className="flex flex-col items-center">
-          <div className="rounded-full h-40 w-40 bg-indigo-500 flex items-center justify-center mt-6">
-            <span className="text-8xl text-white font-bold">
+          <div className="rounded-full h-24 w-24 bg-indigo-500 flex items-center justify-center mt-4">
+            <span className="text-3xl text-white font-bold">
               {profile.first_name.charAt(0).toUpperCase()}
             </span>
           </div>
-          <div className="p-12 text-center">
-            <div className="uppercase tracking-wide text-2xl text-indigo-500 dark:text-indigo-400 font-semibold">{profile.first_name} {profile.last_name}</div>
-            <p className="mt-2 text-7xl leading-tight font-medium text-black dark:text-white">Phone: {profile.phone}</p>
-            <p className="mt-4 text-5xl text-gray-500 dark:text-gray-400">Gross Salary: {profile.gross_salary}</p>
-            <p className="mt-4 text-5xl antialiased hover:subpixel-antialiased text-gray-500 dark:text-gray-400">Income from Other Sources: {profile.income_from_other_sources ? 'Yes' : 'No'}</p>
-            <p className="mt-4 text-5xl antialiased hover:subpixel-antialiased text-gray-500 dark:text-gray-400">Income from House Property: {profile.income_from_house_property ? 'Yes' : 'No'}</p>
-            <p className="mt-4 text-5xl antialiased hover:subpixel-antialiased text-gray-500 dark:text-gray-400">Professional Tax: {profile.professional_tax}</p>
+          <div className="p-8 text-center">
+            <div className="uppercase tracking-wide text-sm text-indigo-500 dark:text-indigo-400 font-semibold">{profile.first_name} {profile.last_name}</div>
+            <p className="mt-1 text-lg leading-tight font-medium text-black dark:text-white">Phone: {profile.phone}</p>
+            <p className="mt-2 text-gray-500 dark:text-gray-400">Gross Salary: {profile.gross_salary}</p>
+            <p className="mt-2 text-gray-500 dark:text-gray-400">Income from Other Sources: {profile.income_from_other_sources ? 'Yes' : 'No'}</p>
+            <p className="mt-2 text-gray-500 dark:text-gray-400">Income from House Property: {profile.income_from_house_property ? 'Yes' : 'No'}</p>
+            <p className="mt-2 text-gray-500 dark:text-gray-400">Professional Tax: {profile.professional_tax}</p>
           </div>
         </div>
       </Card>
