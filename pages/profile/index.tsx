@@ -12,7 +12,6 @@ interface Profile {
   income_from_other_sources: boolean;
   income_from_house_property: boolean;
   professional_tax: number;
-  email: string;
 }
 
 const ProfileWidget = () => {

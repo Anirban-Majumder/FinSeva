@@ -23,7 +23,7 @@ const CopilotSideBarComponent: React.FC = () => {
       <CopilotPopup
         instructions={"You are a friendly and knowledgeable assistant for the FinSeva app, guiding users through income tax filing, providing personalized tax recommendations, and connecting them to expert support when needed. Answer in accordance to Indian taxation laws and rules. Respond to user queries in short and conise way. Talk in a human way, not like a robot. Ask and respond in bullet points."}        
         labels={{
-          title: "ChatBot",
+          title: "FinSeva Assistant",
           initial: "Welcome to FinSeva! Your personal assistant for hassle-free income tax filing and smart tax recommendations. How can I assist you today?",
         }}
         clickOutsideToClose={false}
