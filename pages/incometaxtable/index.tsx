@@ -18,7 +18,7 @@ export default function IncomeTaxTable() {
     <div className="container mx-auto p-8">
       <Card className="w-full">
         <CardHeader className="flex justify-center">
-          <h1 className="text-2xl font-bold">Income Tax Comparison</h1>
+          <h1 className="text-3xl font-bold">Income Tax Comparison</h1>
         </CardHeader>
         <CardBody>
           <Table 
@@ -27,9 +27,9 @@ export default function IncomeTaxTable() {
             className="min-w-full"
           >
             <TableHeader>
-              <TableColumn>Particulars</TableColumn>
-              <TableColumn className="text-right ring ring-green-500 border border-green-500">Old Regime (₹)</TableColumn>
-              <TableColumn className="text-right ring ring-blue-500 border border-blue-500">New Regime (₹)</TableColumn>
+              <TableColumn className="text-xl">Particulars</TableColumn>
+              <TableColumn className="text-right ring ring-green-500 text-xl border border-green-500">Old Regime (₹)</TableColumn>
+              <TableColumn className="text-right ring ring-blue-500 text-xl border border-blue-500">New Regime (₹)</TableColumn>
             </TableHeader>
             <TableBody>
               <TableRow key="1">
