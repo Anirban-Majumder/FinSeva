@@ -12,6 +12,10 @@ interface Profile {
   income_from_other_sources: boolean;
   income_from_house_property: boolean;
   professional_tax: number;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 942b63d (taxtable initiated , reco upadted)
 }
 
 const ProfileWidget = () => {
