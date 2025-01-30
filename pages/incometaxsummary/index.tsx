@@ -66,7 +66,7 @@ const DetailsPage: React.FC = () => {
 
   return (
     <DefaultLayout>
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-default-100 p-4">
+        <div className="flex justify-center items-start min-h-screen bg-gradient-to-br from-background to-default-100 px-4 md:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="flex flex-col gap-2">
           <h2 className="text-2xl font-bold text-center">Get Details</h2>
