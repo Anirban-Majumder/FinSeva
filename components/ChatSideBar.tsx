@@ -4,10 +4,38 @@ import "@copilotkit/react-ui/styles.css";
 import { useTheme } from 'next-themes' // Adjust the import path as needed
 import { MessageSquare } from 'lucide-react'; 
 import ReactDOMServer from 'react-dom/server'; // Import ReactDOMServer
-
+import { useCopilotReadable } from "@copilotkit/react-core"; 
+import { supabase } from '@/lib/supabaseClient';
 const CopilotSideBarComponent: React.FC = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === 'dark';
+  const [profile, setProfile] = React.useState<any | null>(null);
+  useCopilotReadable({
+    description: "The current user's information if null then the user is not logged in",
+    value: profile,
+  });
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const fetchProfile = async () => {
+          const { data, error } = await supabase
+            .from('profiles')
+            .select('gross_salary, income_from_other_sources, income_from_house_property, professional_tax')
+            .eq('id', user.id)
+            .single();
+          if (error) {
+            console.error(error);
+          } else {
+            setProfile(data);
+          }
+        };
+
+        fetchProfile();
+      }
+    };
+    fetchData();
+  }, []);
   useEffect(() => {
     const iconContainer = document.querySelector('.copilotKitButtonIcon');
     if (iconContainer) {
