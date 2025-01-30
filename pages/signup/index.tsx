@@ -115,11 +115,11 @@ const SignUp = () => {
               </Form>
               <Checkbox isRequired className="py-4" size="sm">
             I agree with the&nbsp;
-            <Link href="#" size="sm">
+            <Link href="/terms" size="sm">
               Terms
             </Link>
             &nbsp; and&nbsp;
-            <Link href="#" size="sm">
+            <Link href="/privacypolicy" size="sm">
               Privacy Policy
             </Link>
           </Checkbox>

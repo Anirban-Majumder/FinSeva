@@ -27,7 +27,15 @@ export const siteConfig = {
     {
       label: "Signup",
       href: "/signup",
-    },    
+    },
+    {
+      label: "Summary",
+      href: "/incometaxsummary",
+    },
+    {
+      label: "Profile",
+      href: "/profile",
+    },
     {
       label: "Logout",
       href: "/logout",

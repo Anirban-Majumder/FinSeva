@@ -1,0 +1,57 @@
+import { NextRequest, NextResponse } from 'next/server'
+import axios from 'axios'
+
+const BASE_URL = 'https://portal.incometax.gov.in/iec/servicesapi/v1.0'
+
+interface Form26ASRequest {
+  pan: string
+  password: string
+  assessmentYear: string
+}
+
+async function getAuthToken(pan: string, password: string) {
+  const { data } = await axios.post(`${BASE_URL}/auth/login`, {
+    pan,
+    password,
+    clientId: 'PORTAL',
+    deviceInfo: { deviceId: 'browser', deviceType: 'WEB' }
+  })
+  return data.token
+}
+
+async function downloadForm(token: string, pan: string, year: string) {
+  const { data } = await axios.post(
+    `${BASE_URL}/returns/forms/26as/download`,
+    {
+      assessmentYear: year,
+      pan,
+      statementType: 'Form26AS',
+      formType: 'PDF'
+    },
+    {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+  )
+  return data.pdfContent
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const body: Form26ASRequest = await req.json()
+    const { pan, password, assessmentYear } = body
+
+    const token = await getAuthToken(pan, password)
+    const pdfContent = await downloadForm(token, pan, assessmentYear)
+
+    return NextResponse.json({ 
+      success: true, 
+      data: pdfContent 
+    })
+
+  } catch (error: any) {
+    return NextResponse.json({
+      success: false,
+      error: error.message
+    }, { status: 500 })
+  }
+}

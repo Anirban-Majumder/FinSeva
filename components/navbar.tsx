@@ -33,7 +33,7 @@ export const Navbar = () => {
 
   const filteredNavItems = siteConfig.navItems.filter(item => 
     !(isLoggedIn && (item.label === "Login" || item.label === "Signup")) &&
-    (isLoggedIn || (item.label !== "Dashboard" && item.label !== "Recommendations" && item.label !== "Logout"))
+    (isLoggedIn || (item.label !== "Dashboard" && item.label !== "Recommendations" && item.label !== "Logout" && item.label !== "Profile" && item.label !== "Summary"))
   );
   
   const filteredNavMenuItems = [
