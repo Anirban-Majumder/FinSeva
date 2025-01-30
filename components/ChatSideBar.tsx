@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { CopilotSidebar } from "@copilotkit/react-ui";
+import { CopilotPopup } from "@copilotkit/react-ui";
 import "@copilotkit/react-ui/styles.css";
 import { useTheme } from 'next-themes' // Adjust the import path as needed
 import { MessageSquare } from 'lucide-react'; 
@@ -20,7 +20,7 @@ const CopilotSideBarComponent: React.FC = () => {
 
   return (
     <>
-      <CopilotSidebar
+      <CopilotPopup
         instructions={"You are a friendly and knowledgeable assistant for the FinSeva app, guiding users through income tax filing, providing personalized tax recommendations, and connecting them to expert support when needed. Answer in accordance to Indian taxation laws and rules."}        
         labels={{
           title: "ChatBot",
