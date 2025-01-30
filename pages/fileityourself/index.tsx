@@ -482,7 +482,7 @@ setUserId(data.userId); setPassword(data.password); setAssessmentYear(data.asses
 
         <Button
           className={`mt-6 w-full ${isFormValid() ? 'bg-green-500' : 'bg-gray-400'} hover:bg-green-600 text-white font-bold py-2 px-4 rounded`}
-          disabled={!isFormValid()}
+           onClick={() => { router.push('/incometaxtable'); }}
         >
           File Now
         </Button>
