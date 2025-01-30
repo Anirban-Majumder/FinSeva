@@ -11,8 +11,9 @@ import {
   Checkbox, 
   Button, 
 } from '@nextui-org/react';
-
+import { useTheme } from 'next-themes';
 const DocsPage = () => {
+  const { theme } = useTheme();
   const router = useRouter();
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
@@ -203,96 +204,96 @@ const DocsPage = () => {
       <h2 className="text-2xl mb-4">E-Filing: Income Tax Returns</h2>
       <form onSubmit={handleSubmit}>
 
-        <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
+        <Card className={`p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-2 ${theme === 'dark' ? 'bg-zinc-600' : 'bg-white'}`}>
           <h3 className="text-xl mb-4 text-blue-500 underline decoration-double underline-offset-4">E-File: Income Tax Returns</h3>
 
           <Select
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Select Current Assessment Year"
             value={assessmentYear}
             onChange={handleAssessmentYearChange}
             fullWidth
           >
-            <SelectItem key="2024-25" value="2024-25">
+            <SelectItem   key="2024-25" value="2024-25">
               2024-25 (Current AY)
             </SelectItem>
-            <SelectItem key="2023-24" value="2023-24">
+            <SelectItem   key="2023-24" value="2023-24">
               2023-24
             </SelectItem>
-            <SelectItem key="2022-23" value="2022-23">
+            <SelectItem   key="2022-23" value="2022-23">
               2022-23
             </SelectItem>
           </Select>
 
           <Select
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Select Mode of Filing"
             value={filingMode}
             fullWidth
           >
-            <SelectItem key="online" value="online">
+            <SelectItem   key="online" value="online">
               Online (Recommended)
             </SelectItem>
-            <SelectItem key="offline" value="offline">
+            <SelectItem   key="offline" value="offline">
               Offline
             </SelectItem>
           </Select>
 
           <Select
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Select Status"
             value={status}
             fullWidth
           >
-            <SelectItem key="individual" value="individual">
+            <SelectItem   key="individual" value="individual">
               Individual
             </SelectItem>
-            <SelectItem key="huf" value="huf">
+            <SelectItem   key="huf" value="huf">
               HUF
             </SelectItem>
-            <SelectItem key="others" value="others">
+            <SelectItem   key="others" value="others">
               Others
             </SelectItem>
           </Select>
 
           <Select
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Select ITR Form"
             value={itrForm}
             fullWidth
           >
-            <SelectItem key="itr1" value="itr1">
+            <SelectItem   key="itr1" value="itr1">
               ITR 1 (for salaried employees)
             </SelectItem>
-            <SelectItem key="itr2" value="itr2">
+            <SelectItem   key="itr2" value="itr2">
               ITR 2
             </SelectItem>
-            <SelectItem key="itr3" value="itr3">
+            <SelectItem   key="itr3" value="itr3">
               ITR 3
             </SelectItem>
-            <SelectItem key="itr4" value="itr4">
+            <SelectItem   key="itr4" value="itr4">
               ITR 4
             </SelectItem>
           </Select>
 
           <Select
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Select Filing Reason"
             value={filingReason}
             fullWidth
           >
-            <SelectItem key="taxableIncome" value="taxableIncome">
+            <SelectItem   key="taxableIncome" value="taxableIncome">
               Taxable income is more than basic exemption limit
             </SelectItem>
-            <SelectItem key="condition" value="condition">
+            <SelectItem   key="condition" value="condition">
               Filing due to conditions as per Section 139(1)
             </SelectItem>
-            <SelectItem key="others" value="others">
+            <SelectItem   key="others" value="others">
               Others
             </SelectItem>
           </Select>
           {filingReason === 'condition' && (
-            <div className="mb-4">
+            <div className="mb-4  bg-slate-400">
               <Checkbox value="foreignTravel" onChange={(e) => handleFilingConditionChange(e.target.checked ? [...filingCondition, 'foreignTravel'] : filingCondition.filter(item => item !== 'foreignTravel'))}>
                 Incurred expenditure exceeding ₹2 lakhs for travel to a foreign country
               </Checkbox>
@@ -306,41 +307,41 @@ const DocsPage = () => {
           )}
         </Card>
 
-        <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
+        <Card className={`p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-2  ${theme === 'dark' ? 'bg-zinc-600' : 'bg-white'}`}>
           <h3 className="text-xl mb-4 text-blue-500 underline decoration-double">Personal Information</h3>
           <h4 className="text-lg mb-2 text-blue-500 underline decoration-double">Profile</h4>
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="First Name"
             fullWidth
             bordered={false}
             placeholder="Enter your First Name"
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Middle Name"
             fullWidth
             bordered={false}
             placeholder="Enter your Middle Name"
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Last Name"
             fullWidth
             bordered={false}
             placeholder="Enter your Last Name"
           />
-          <Input className="mb-4" label="PAN" fullWidth bordered={false} placeholder="Enter your PAN" />
-          <Input className="mb-4" label="DOB" type="date" fullWidth bordered={false} />
+          <Input className="mb-4  bg-slate-400" label="PAN" fullWidth bordered={false} placeholder="Enter your PAN" />
+          <Input className="mb-4  bg-slate-400" label="DOB" type="date" fullWidth bordered={false} />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Aadhaar No."
             fullWidth
             bordered={false}
             placeholder="Enter your Aadhaar Number"
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Aadhaar Enrollment ID"
             fullWidth
             bordered={false}
@@ -349,14 +350,14 @@ const DocsPage = () => {
 
           <h4 className="text-lg mt-4 mb-2 text-blue-500 underline decoration-double">Contact</h4>
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Address"
             fullWidth
             bordered={false}
             placeholder="Enter your Address"
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Mobile No."
             type="tel"
             fullWidth
@@ -364,7 +365,7 @@ const DocsPage = () => {
             placeholder="Enter your Mobile Number"
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Email Address"
             type="email"
             fullWidth
@@ -374,7 +375,7 @@ const DocsPage = () => {
 
           <h4 className="text-lg mt-4 mb-2 text-blue-500 underline decoration-double">Nature of Employment</h4>
           <Select
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Nature of Employment"
             value={natureOfEmployment}
             onChange={(value) => setNatureOfEmployment(value)} 
@@ -382,40 +383,40 @@ const DocsPage = () => {
             bordered={false}
             color="inherit"
           >
-            <SelectItem key="centralGovt" value="centralGovt">
+            <SelectItem   key="centralGovt" value="centralGovt">
               Central Govt
             </SelectItem>
-            <SelectItem key="stateGovt" value="stateGovt">
+            <SelectItem   key="stateGovt" value="stateGovt">
               State Govt
             </SelectItem>
-            <SelectItem key="psu" value="psu">
+            <SelectItem   key="psu" value="psu">
               Public Sector Undertaking
             </SelectItem>
-            <SelectItem key="cgPensioner" value="cgPensioner">
+            <SelectItem   key="cgPensioner" value="cgPensioner">
               CG Pensioner
             </SelectItem>
-            <SelectItem key="sgPensioner" value="sgPensioner">
+            <SelectItem   key="sgPensioner" value="sgPensioner">
               SG Pensioner
             </SelectItem>
-            <SelectItem key="psuPensioner" value="psuPensioner">
+            <SelectItem   key="psuPensioner" value="psuPensioner">
               PSU Pensioner
             </SelectItem>
-            <SelectItem key="otherPensioners" value="otherPensioners">
+            <SelectItem   key="otherPensioners" value="otherPensioners">
               Other Pensioners
             </SelectItem>
-            <SelectItem key="others" value="others">
+            <SelectItem   key="others" value="others">
               Others
             </SelectItem>
-            <SelectItem key="notApplicable" value="notApplicable">
+            <SelectItem   key="notApplicable" value="notApplicable">
               Not Applicable (e.g., Family Pension, etc.)
             </SelectItem>
           </Select>
         </Card>
 
-        <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
+        <Card className={`p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-2 ${theme === 'dark' ? 'bg-zinc-600' : 'bg-white'}`}>
           <h3 className="text-xl mb-4 text-blue-500 underline decoration-double">Gross Total Income</h3>
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Gross Salary"
             fullWidth
             bordered={false}
@@ -424,7 +425,7 @@ const DocsPage = () => {
             onChange={(e) => setGrossSalary(e.target.value)}
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Exempt Allowances"
             fullWidth
             bordered={false}
@@ -433,7 +434,7 @@ const DocsPage = () => {
             onChange={(e) => setExemptAllowances(e.target.value)}
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Income Claimed for Relief from Taxation u/s 89A"
             fullWidth
             bordered={false}
@@ -442,7 +443,7 @@ const DocsPage = () => {
             onChange={(e) => setReliefIncome(e.target.value)}
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Net Salary"
             fullWidth
             bordered={false}
@@ -451,7 +452,7 @@ const DocsPage = () => {
             onChange={(e) => setNetSalary(e.target.value)}
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Deductions u/s 16"
             fullWidth
             bordered={false}
@@ -461,10 +462,10 @@ const DocsPage = () => {
           />
         </Card>
 
-        <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
+        <Card className={`p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-2 ${theme === 'dark' ? 'bg-zinc-600' : 'bg-white'}`}>
           <h3 className="text-xl mb-4 text-blue-500 underline decoration-double">Total Deductions</h3>
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Donations Paid"
             fullWidth
             bordered={false}
@@ -473,7 +474,7 @@ const DocsPage = () => {
             onChange={(e) => setDonationsPaid(e.target.value)}
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Scientific Research or Rural Development"
             fullWidth
             bordered={false}
@@ -482,7 +483,7 @@ const DocsPage = () => {
             onChange={(e) => setScientificResearch(e.target.value)}
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Deduction under Section 80GG"
             fullWidth
             bordered={false}
@@ -491,7 +492,7 @@ const DocsPage = () => {
             onChange={(e) => setDeduction80GG(e.target.value)}
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Employee’s Share of Provident Fund"
             fullWidth
             bordered={false}
@@ -500,7 +501,7 @@ const DocsPage = () => {
             onChange={(e) => setProvidentFund(e.target.value)}
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Deduction under Section 80CCD(2)"
             fullWidth
             bordered={false}
@@ -509,7 +510,7 @@ const DocsPage = () => {
             onChange={(e) => setDeduction80CCD2(e.target.value)}
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Medical Insurance Premium"
             fullWidth
             bordered={false}
@@ -518,7 +519,7 @@ const DocsPage = () => {
             onChange={(e) => setMedicalInsurance(e.target.value)}
           />
                     <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Interest on Loan for Higher Education"
             fullWidth
             bordered={false}
@@ -527,7 +528,7 @@ const DocsPage = () => {
             onChange={(e) => setHigherEducationLoan(e.target.value)}
           />
           <Input
-            className="mb-4"
+            className="mb-4  bg-slate-400"
             label="Interest on Savings Bank Accounts"
             fullWidth
             bordered={false}
