@@ -29,7 +29,7 @@ const CopilotSideBarComponent: React.FC = () => {
         clickOutsideToClose={false}
       />
       <style>
-        {`
+        {`copilotKitSidebar
 .copilotKitHeader {
   background-color: ${isDarkMode ? '#2d3748' : 'rgb(199 210 254)'} !important;
   color: ${isDarkMode ? 'white' : 'rgb(55 48 163)'} !important;
@@ -79,7 +79,15 @@ const CopilotSideBarComponent: React.FC = () => {
   color: ${isDarkMode ? 'rgb(226 232 240)' : 'rgb(55 48 163)'};
 }
 
-
+.copilotKitWindow {
+  top:10% !important; // Added top
+  height: 50% !important; // Added height
+  max-height: 50% !important;
+  overflow: hidden !important;
+}
+.copilotKitMessages {
+    height: 50% !important; 
+}
 .copilotKitMessages,.copilotKitWindow  {
   background-color: ${isDarkMode ? '#182130' : 'rgb(238 242 255)'} !important;
 }
