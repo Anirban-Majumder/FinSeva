@@ -536,46 +536,6 @@ const DocsPage = () => {
             onChange={(e) => setSavingsInterest(e.target.value)}
           />
         </Card>
-
-        <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
-          <h3 className="text-xl mb-4 text-blue-500 underline decoration-double">Tax Paid</h3>
-          <Input
-            className="mb-4"
-            label="Income Tax Paid"
-            fullWidth
-            bordered={false}
-            placeholder="Enter Income Tax Paid"
-            value={incomeTaxPaid}
-            onChange={(e) => setIncomeTaxPaid(e.target.value)}
-          />
-          <Input
-            className="mb-4"
-            label="TDS"
-            fullWidth
-            bordered={false}
-            placeholder="Enter TDS"
-            value={tds}
-            onChange={(e) => setTds(e.target.value)}
-          />
-          <Input
-            className="mb-4"
-            label="Self Assessment Tax"
-            fullWidth
-            bordered={false}
-            placeholder="Enter Self Assessment Tax"
-            value={selfAssessmentTax}
-            onChange={(e) => setSelfAssessmentTax(e.target.value)}
-          />
-          <Input
-            className="mb-4"
-            label="Advance Tax"
-            fullWidth
-            bordered={false}
-            placeholder="Enter Advance Tax"
-            value={advanceTax}
-            onChange={(e) => setAdvanceTax(e.target.value)}
-          />
-        </Card>
         <Button
           className={`mt-6 w-full ${isFormValid() ? 'bg-green-500' : 'bg-gray-400'} hover:bg-green-600 text-white font-bold py-2 px-4 rounded`}
            onClick={() => { router.push('/incometaxtable'); }}
