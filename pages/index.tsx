@@ -49,7 +49,7 @@ export default function Home() {
       {/* Team Section */}
       <section className="mb-16 text-center">
         <h2 className="text-xl sm:text-2xl text-[#37b50c] leading-relaxed max-w-3xl mx-auto">
-          Led by a team of ex IRS and ex-IRS officers for your maximum Tax Saving.
+          Led by a team of IRS and ex-IRS officers for your maximum Tax Saving.
         </h2>
       </section>
 
@@ -59,7 +59,7 @@ export default function Home() {
           Decrease your tax liability up to 69% by:
         </h2>
         <Card className="p-6 bg-[#EEF2FF] rounded-none w-full">
-          <h3 className="font-semibold mb-2 text-lg sm:text-xl">1. Your personal tax support</h3>
+          <h3 className="font-semibold mb-2 text-lg sm:text-xl text-[#37b50c]">1. Your personal tax support</h3>
           <p className="text-gray-600">lorem ipsum</p>
         </Card>
       </section>
@@ -70,7 +70,7 @@ export default function Home() {
           Security and Privacy
         </h2>
         <div className="flex items-start gap-4">
-          <div className="p-3 bg-[#EEF2FF] rounded-none w-full">
+          <div className="p-3 bg-[#EEF2FF] rounded-full w-none">
             <ShieldCheck className="w-6 h-6 text-[#37b50c]" />
           </div>
           <p className="text-sm sm:text-base     ">
