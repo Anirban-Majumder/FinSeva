@@ -9,7 +9,7 @@ const questions = [
   { id: 1, label: "Gross salary", type: "text" },
   { id: 2, label: "Income from other source?", type: "radio", options: ["Yes", "No"] },
   { id: 3, label: "Income from house property?", type: "checkbox" },
-  { id: 4, label: "Professional tax", type: "text" },
+  { id: 4, label: "Net Salary", type: "text" },
 ];
 
 export default function GetUserInfo() {
@@ -45,7 +45,7 @@ export default function GetUserInfo() {
             gross_salary: parseInt(grossSalary),
             income_from_other_sources: incomeFromOtherSource,
             income_from_house_property: incomeFromHouseProperty,
-            professional_tax: parseInt(professionalTax),
+            net_salary: parseInt(professionalTax),
           },
       ).eq('id', user.id);
 
