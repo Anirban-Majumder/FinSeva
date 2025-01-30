@@ -7,7 +7,7 @@ import {
 
  
 
-const serviceAdapter = new GroqAdapter({ model: "llama-3.1-8b-instant" });
+const serviceAdapter = new GroqAdapter({ model: "llama-3.3-70b-versatile" });
  
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const runtime = new CopilotRuntime();
