@@ -15,7 +15,7 @@ export default function DefaultLayout({
     <div className="relative flex flex-col h-screen overflow-hidden scrollbar-hide">
       <Head />
       <Navbar />
-      <main className="container mx-auto max-w-7xl px-6 flex-grow pt-8 overflow-auto">
+      <main className="container mx-auto max-w-7xl px-6 flex-grow pt-8 overflow-auto scrollbar-hide">
         <CopilotKit runtimeUrl="/api/copilotkit">
           <ThemeProvider>{children}</ThemeProvider>
           <CopilotSideBarComponent />
