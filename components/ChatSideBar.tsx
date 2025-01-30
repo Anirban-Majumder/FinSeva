@@ -6,9 +6,8 @@ import { MessageSquare } from 'lucide-react';
 import ReactDOMServer from 'react-dom/server'; // Import ReactDOMServer
 
 const CopilotSideBarComponent: React.FC = () => {
-  const { theme ,setTheme } = useTheme();
+  const { theme } = useTheme();
   const isDarkMode = theme === 'dark';
-
   useEffect(() => {
     const iconContainer = document.querySelector('.copilotKitButtonIcon');
     if (iconContainer) {
@@ -16,6 +15,7 @@ const CopilotSideBarComponent: React.FC = () => {
       const iconElement = ReactDOMServer.renderToString(<MessageSquare size={32} className="icon-responsive text-white" />);
       iconContainer.innerHTML = iconElement;
     }
+    
   }, []);
 
   return (
@@ -28,6 +28,7 @@ const CopilotSideBarComponent: React.FC = () => {
         }}
         clickOutsideToClose={false}
       />
+      {/*
       <style>
         {`copilotKitSidebar
 .copilotKitHeader {
@@ -35,8 +36,8 @@ const CopilotSideBarComponent: React.FC = () => {
   color: ${isDarkMode ? 'white' : 'rgb(55 48 163)'} !important;
 }
 .copilotKitButton {
-  background-color: rgb(99 ,102 ,241) !important; /* bg-indigo-600 */
-  color: white !important; /* text-white */
+  background-color: rgb(99 ,102 ,241) !important; 
+  color: white !important; 
   width: 4rem !important; 
   height: 4rem !important; 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1); 
@@ -45,7 +46,7 @@ const CopilotSideBarComponent: React.FC = () => {
   transition: background-color 0.3s ease-in-out;
   cursor: pointer;
   &:hover {
-    background-color: rgb(79 70 229) !important; /* hover:bg-indigo-700 */
+    background-color: rgb(79 70 229) !important; 
   }
 
   @media (min-width: 640px) {
@@ -58,11 +59,11 @@ const CopilotSideBarComponent: React.FC = () => {
   }
 
   .dark & {
-    background-color: rgb(99,102,241) !important; /* dark:bg-indigo-500 */
+    background-color: rgb(99,102,241) !important; 
   }
 
   .dark &:hover {
-    background-color: rgb(67 56 202) !important; /* dark:hover:bg-indigo-600 */
+    background-color: rgb(67 56 202) !important; 
   }
 }
 .copilotKitSidebar {
@@ -143,6 +144,8 @@ const CopilotSideBarComponent: React.FC = () => {
 }
         `}
       </style>
+      */}
+      <div className={`copilotKitStyles ${isDarkMode ? 'dark' : 'light'}`}></div>
     </>
   );
 };
