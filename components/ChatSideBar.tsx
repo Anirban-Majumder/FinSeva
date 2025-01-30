@@ -26,7 +26,7 @@ const CopilotSideBarComponent: React.FC = () => {
           title: "FinSeva Assistant",
           initial: "Welcome to FinSeva! Your personal assistant for hassle-free income tax filing and smart tax recommendations. How can I assist you today?",
         }}
-        clickOutsideToClose={false}
+        clickOutsideToClose={true}
       />
       {/*
       <style>
