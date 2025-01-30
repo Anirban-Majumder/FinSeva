@@ -18,7 +18,7 @@ import React, { useEffect, useState, useContext } from 'react';
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
-import { Logo } from "@/components/icons";
+//import { Logo } from "@/components/icons";
 import { SessionContext } from '@/lib/usercontext';
 
 export const Navbar = () => {
@@ -51,7 +51,7 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
+            <img src="/logo.png" alt="FinSeva" className="w-16 h-16" />
             <p className="font-bold text-inherit">FinSeva</p>
           </NextLink>
         </NavbarBrand>
