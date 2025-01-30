@@ -29,7 +29,7 @@ export default function DocsPage() {
     <DefaultLayout>
       <div className="flex items-center justify-center min-h-screen">
         <Card
-          className="glass-morphism p-8 rounded-lg shadow-lg ring-1 ring-green-500 ring-blue-500"
+          className="glass-morphism p-8 rounded-lg shadow-lg ring-1 ring-green-500"
           style={{ width: '400px', height: '600px', position: 'relative', overflow: 'hidden' }}
         >
           <div className="absolute top-2 right-2 text-gray-500 text-xs">
