@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState } from 'react';
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
@@ -13,51 +14,56 @@ import {
 } from '@nextui-org/react';
 
 export default function DocsPage() {
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
-  const [assessmentYear, setAssessmentYear] = useState('2024-25');
-  const [filingMode, setFilingMode] = useState('online');
-  const [status, setStatus] = useState('individual');
-  const [itrForm, setItrForm] = useState('itr1');
-  const [filingReason, setFilingReason] = useState('taxableIncome');
-  const [filingCondition, setFilingCondition] = useState([]);
-  const [natureOfEmployment, setNatureOfEmployment] = useState(''); 
-  const [exemptions, setExemptions] = useState({
-    travel: '',
-    compensatory: '',
-    houseRent: '',
-    leaveTravel: '',
-  });
+  const [responses, setResponses] = useState({});
+  const [error, setError] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleAssessmentYearChange = (event) => {
-    setAssessmentYear(event.target.value);
-  };
+  const handleChange = (id, value) => setResponses({ ...responses, [id]: value });
 
-  const handleFilingConditionChange = (value) => {
-    setFilingCondition(
-      value.includes('condition') ? [...value, ...filingCondition] : value
-    );
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleExemptionChange = (field, value) => {
-    setExemptions((prev) => ({ ...prev, [field]: value }));
-  };
+    const pan = responses["pan"];
 
-  const isFormValid = () => {
-    return userId && password && assessmentYear && filingMode && status && itrForm && filingReason;
-  };
 
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      throw new Error('User not found');
+    }
+    const { data, error } = await supabase
+      .from('profiles')
+      .update(
+        {
+          //handel fileds
+
+        },
+      ).eq('id', user.id);
+
+    if (error) {
+      setError('Failed to submit data. Please try again.');
+    } else {
+      setError('');
+      setIsSubmitted(true);  // Set the submitted state to true
+      //router.push('/dashboard');
+    }
+  } catch (error) {
+    setError('An error occurred. Please try again.');
+  }}
+
+  const IsFormvalid = () => {
+    return true;
+  }
   return (
     <DefaultLayout>
       <h2 className="text-2xl mb-4">E-Filing : Income Tax Returns</h2>
 
       <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
-        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4  ">Log In</h3>
+        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4">Log In</h3>
         <Input
           className="mb-4"
           label="User ID (PAN number)"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
+          onChange={(e) => handleChange("pan",e.target.value)}
           fullWidth
           placeholder="Enter your PAN number"
         />
@@ -65,7 +71,6 @@ export default function DocsPage() {
           className="mb-4"
           label="Password"
           type="password"
-          value={password}
           onChange={(e) => setPassword(e.target.value)}
           fullWidth
           bordered={false}
@@ -74,12 +79,11 @@ export default function DocsPage() {
       </Card>
 
       <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4 ">
-        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4  ">E-File: Income Tax Returns</h3>
+        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4">E-File: Income Tax Returns</h3>
 
         <Select
           className="mb-4"
           label="Select Current Assessment Year"
-          value={assessmentYear}
           onChange={handleAssessmentYearChange}
           fullWidth
           bordered={false}
@@ -99,7 +103,6 @@ export default function DocsPage() {
         <Select
           className="mb-4"
           label="Select Mode of Filing"
-          value={filingMode}
           onChange={setFilingMode}
           fullWidth
           bordered={false}
@@ -116,7 +119,6 @@ export default function DocsPage() {
         <Select
           className="mb-4"
           label="Select Status"
-          value={status}
           onChange={setStatus}
           fullWidth
           bordered={false}
@@ -136,7 +138,6 @@ export default function DocsPage() {
         <Select
           className="mb-4"
           label="Select ITR Form"
-          value={itrForm}
           onChange={setItrForm}
           fullWidth
           bordered={false}
@@ -159,7 +160,6 @@ export default function DocsPage() {
         <Select
           className="mb-4"
           label="Select Filing Reason"
-          value={filingReason}
           onChange={setFilingReason}
           fullWidth
           bordered={false}
@@ -257,48 +257,47 @@ export default function DocsPage() {
         />
 
         <h4 className="text-lg mt-4 mb-2 text-blue-500 underline decoration-double  ">Nature of Employment</h4>
-        
+
         <Select
-  className="mb-4"
-  label="Nature of Employment"
-  value={natureOfEmployment} // Assuming you have a state variable for this
-  onChange={(value) => setNatureOfEmployment(value)} 
-  fullWidth
-  bordered={false}
-  color="inherit" // Set text color to inherit from theme
->
-  <SelectItem key="centralGovt" value="centralGovt">
-    Central Govt
-  </SelectItem>
-  <SelectItem key="stateGovt" value="stateGovt">
-    State Govt
-  </SelectItem>
-  <SelectItem key="psu" value="psu">
-    Public Sector Undertaking
-  </SelectItem>
-  <SelectItem key="cgPensioner" value="cgPensioner">
-    CG Pensioner
-  </SelectItem>
-  <SelectItem key="sgPensioner" value="sgPensioner">
-    SG Pensioner
-  </SelectItem>
-  <SelectItem key="psuPensioner" value="psuPensioner">
-    PSU Pensioner
-  </SelectItem>
-  <SelectItem key="otherPensioners" value="otherPensioners">
-    Other Pensioners
-  </SelectItem>
-  <SelectItem key="others" value="others">
-    Others
-  </SelectItem>
-  <SelectItem key="notApplicable" value="notApplicable">
-    Not Applicable (e.g., Family Pension, etc.)
-  </SelectItem>
-</Select>
+          className="mb-4"
+          label="Nature of Employment" // Assuming you have a state variable for this
+          onChange={(value) => setNatureOfEmployment(value)}
+          fullWidth
+          bordered={false}
+          color="inherit" // Set text color to inherit from theme
+        >
+          <SelectItem key="centralGovt" value="centralGovt">
+            Central Govt
+          </SelectItem>
+          <SelectItem key="stateGovt" value="stateGovt">
+            State Govt
+          </SelectItem>
+          <SelectItem key="psu" value="psu">
+            Public Sector Undertaking
+          </SelectItem>
+          <SelectItem key="cgPensioner" value="cgPensioner">
+            CG Pensioner
+          </SelectItem>
+          <SelectItem key="sgPensioner" value="sgPensioner">
+            SG Pensioner
+          </SelectItem>
+          <SelectItem key="psuPensioner" value="psuPensioner">
+            PSU Pensioner
+          </SelectItem>
+          <SelectItem key="otherPensioners" value="otherPensioners">
+            Other Pensioners
+          </SelectItem>
+          <SelectItem key="others" value="others">
+            Others
+          </SelectItem>
+          <SelectItem key="notApplicable" value="notApplicable">
+            Not Applicable (e.g., Family Pension, etc.)
+          </SelectItem>
+        </Select>
       </Card>
 
       <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
-        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 ">Gross Total Income</h3>
+        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 ">Gross Total Income</h3>
         <Input
           className="mb-4"
           label="Gross Salary"
@@ -337,7 +336,7 @@ export default function DocsPage() {
       </Card>
 
       <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
-        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 ">Total Deductions</h3>
+        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 ">Total Deductions</h3>
         <Input
           className="mb-4"
           label="Donations Paid"
@@ -397,7 +396,7 @@ export default function DocsPage() {
       </Card>
 
       <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
-        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 ">Tax Paid</h3>
+        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 ">Tax Paid</h3>
         <Input
           className="mb-4"
           label="Income Tax Paid"
@@ -429,7 +428,7 @@ export default function DocsPage() {
       </Card>
 
       <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
-        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 underline-offset-4 ">Total Tax Liability</h3>
+        <h3 className="text-xl mb-4 text-blue-500 underline decoration-double  underline-offset-4 ">Total Tax Liability</h3>
         <Input
           className="mb-4"
           label="Taxable Income"
@@ -441,10 +440,10 @@ export default function DocsPage() {
           className="mb-4"
           label="Tax Payable"
           fullWidth
-            bordered={false}
-            placeholder="Enter Tax Payable"
-          />
-          <Input
+          bordered={false}
+          placeholder="Enter Tax Payable"
+        />
+        <Input
           className="mb-4"
           label="Rebate"
           fullWidth
@@ -477,6 +476,7 @@ export default function DocsPage() {
       <Button
         className={`mt-6 w-full ${isFormValid() ? 'bg-green-500' : 'bg-gray-400'} hover:bg-green-600 text-white font-bold py-2 px-4 rounded`}
         disabled={!isFormValid()}
+        onClick={handleSubmit}
       >
         File Now
       </Button>

@@ -1,8 +1,9 @@
 import { Link } from "@nextui-org/link";
-
+import "@copilotkit/react-ui/styles.css";
 import { Head } from "./head";
-
+import { CopilotKit } from "@copilotkit/react-core"; 
 import { Navbar } from "@/components/navbar";
+import { ThemeProvider } from 'next-themes'
 
 export default function DefaultLayout({
   children,
@@ -14,7 +15,11 @@ export default function DefaultLayout({
       <Head />
       <Navbar />
       <main className="container mx-auto max-w-7xl px-6 flex-grow pt-16">
-        {children}
+      <CopilotKit runtimeUrl="/api/copilotkit">
+      
+    <ThemeProvider>{children}</ThemeProvider>
+        
+      </CopilotKit>
       </main>
     </div>
   );

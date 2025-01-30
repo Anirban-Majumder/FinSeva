@@ -3,12 +3,19 @@ import { Button } from "@nextui-org/button";
 import { Card } from "@nextui-org/card";
 import { ShieldCheck } from 'lucide-react';
 import { useRouter } from 'next/router';
-
+import { CopilotSidebar } from "@copilotkit/react-ui";
 export default function Home() {
   const router = useRouter();
   return (
     <DefaultLayout>
-
+      <CopilotSidebar
+      defaultOpen={true}
+      instructions={"You are assisting the user as best as you can. Answer in the best way possible given the data you have."}
+      labels={{
+        title: "Sidebar Assistant",
+        initial: "How can I help you today?",
+      }}
+    >
       {/* Hero Section */}
       <section className="mb-16 mt-32">
         <div className="relative">
@@ -94,7 +101,7 @@ export default function Home() {
           Save taxes 
         </Button>
       </section>
-
+      </CopilotSidebar>
     </DefaultLayout>
   );
 }
