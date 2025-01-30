@@ -109,20 +109,20 @@ const SignUp = () => {
                 isClearable
                   fullWidth
                 />
+              <Checkbox isRequired className="py-4" size="sm">
+                I agree with the&nbsp;
+                <Link href="/terms" size="sm">
+                Terms
+                </Link>
+                &nbsp; and&nbsp;
+                <Link href="/privacypolicy" size="sm">
+                Privacy Policy
+                </Link>
+              </Checkbox>
                 <Button type="submit" color="primary" fullWidth>
                   Sign Up
                 </Button>
               </Form>
-              <Checkbox isRequired className="py-4" size="sm">
-            I agree with the&nbsp;
-            <Link href="/terms" size="sm">
-              Terms
-            </Link>
-            &nbsp; and&nbsp;
-            <Link href="/privacypolicy" size="sm">
-              Privacy Policy
-            </Link>
-          </Checkbox>
               <Button onPress={handleGoogleSignIn} variant="bordered" color="primary">
                 <Icon icon="flat-color-icons:google" width={24} />
                 &nbsp; Sign Up with Google
