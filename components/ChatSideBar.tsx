@@ -21,10 +21,9 @@ const CopilotSideBarComponent: React.FC = () => {
   return (
     <>
       <CopilotSidebar
-        instructions={"You are an AI assistant for a Med-Aid app that scans prescriptions and provides medication info. Interpret prescriptions, offer detailed med info including dosages and precautions, and answer user queries in concise about their prescriptions and medications clearly and safely."}
-        labels={{
+        instructions={"You are a friendly and knowledgeable assistant for the FinSeva app, guiding users through income tax filing, providing personalized tax recommendations, and connecting them to expert support when needed."}        labels={{
           title: "ChatBot",
-          initial: "Hello there, How can I help You today?",
+          initial: "Welcome to FinSeva! Your personal assistant for hassle-free income tax filing and smart tax recommendations. How can I assist you today?",
         }}
         clickOutsideToClose={false}
       />
