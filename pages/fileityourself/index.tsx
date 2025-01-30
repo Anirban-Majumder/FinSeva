@@ -202,26 +202,6 @@ const DocsPage = () => {
     <DefaultLayout>
       <h2 className="text-2xl mb-4">E-Filing: Income Tax Returns</h2>
       <form onSubmit={handleSubmit}>
-        <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
-          <h3 className="text-xl mb-4 text-blue-500 underline decoration-double underline-offset-4">Log In</h3>
-          <Input
-            className="mb-4"
-            label="User ID (PAN number)"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-            fullWidth
-            placeholder="Enter your PAN number"
-          />
-          <Input
-            className="mb-4"
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            fullWidth
-            placeholder="Enter your password"
-          />
-        </Card>
 
         <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
           <h3 className="text-xl mb-4 text-blue-500 underline decoration-double underline-offset-4">E-File: Income Tax Returns</h3>
@@ -596,65 +576,6 @@ const DocsPage = () => {
             onChange={(e) => setAdvanceTax(e.target.value)}
           />
         </Card>
-
-        <Card className="p-4 bg-gray-100 backdrop-blur-md rounded-lg shadow-md mb-6 ring-2 ring-green-500 ring-offset-4">
-          <h3 className="text-xl mb-4 text-blue-500 underline decoration-double">Total Tax Liability</h3>
-          <Input
-            className="mb-4"
-            label="Taxable Income"
-            fullWidth
-            bordered={false}
-            placeholder="Enter Taxable Income"
-            value={taxableIncome}
-            onChange={(e) => setTaxableIncome(e.target.value)}
-          />
-          <Input
-            className="mb-4"
-            label="Tax Payable"
-            fullWidth
-            bordered={false}
-            placeholder="Enter Tax Payable"
-            value={taxPayable}
-            onChange={(e) => setTaxPayable(e.target.value)}
-          />
-          <Input
-            className="mb-4"
-            label="Rebate"
-            fullWidth
-            bordered={false}
-            placeholder="Enter Rebate"
-            value={rebate}
-            onChange={(e) => setRebate(e.target.value)}
-          />
-          <Input
-            className="mb-4"
-            label="Surcharge"
-            fullWidth
-            bordered={false}
-            placeholder="Enter Surcharge"
-            value={surcharge}
-            onChange={(e) => setSurcharge(e.target.value)}
-          />
-          <Input
-            className="mb-4"
-            label="Health and Education Cess"
-            fullWidth
-            bordered={false}
-            placeholder="Enter Health and Education Cess"
-            value={healthCess}
-            onChange={(e) => setHealthCess(e.target.value)}
-          />
-          <Input
-            className="mb-4"
-            label="Total Tax Liability"
-            fullWidth
-            bordered={false}
-            placeholder="Enter Total Tax Liability"
-            value={totalTaxLiability}
-            onChange={(e) => setTotalTaxLiability(e.target.value)}
-          />
-        </Card>
-
         <Button
           className={`mt-6 w-full ${isFormValid() ? 'bg-green-500' : 'bg-gray-400'} hover:bg-green-600 text-white font-bold py-2 px-4 rounded`}
            onClick={() => { router.push('/incometaxtable'); }}
