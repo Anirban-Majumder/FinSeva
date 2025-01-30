@@ -21,7 +21,7 @@ const CopilotSideBarComponent: React.FC = () => {
         const fetchProfile = async () => {
           const { data, error } = await supabase
             .from('profiles')
-            .select('gross_salary, income_from_other_sources, income_from_house_property, professional_tax')
+            .select('first_name,last_name,gross_salary, income_from_other_sources, income_from_house_property, net_salary')
             .eq('id', user.id)
             .single();
           if (error) {
