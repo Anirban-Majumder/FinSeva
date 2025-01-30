@@ -85,7 +85,7 @@ const ContactPage: NextPage = () => {
 
   return (
     <DefaultLayout>
-      <section className="flex justify-center items-start min-h-screen bg-gradient-to-br from-background to-default-100 p-4 md:p-8">
+      <section className="flex justify-center items-start min-h-screen p-4 md:p-8">
         <div className="w-full max-w-2xl">
           <Card className="w-full">
             <CardHeader className="flex flex-col gap-2 px-8 pt-8">
