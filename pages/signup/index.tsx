@@ -38,7 +38,7 @@ const SignUp = () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'http://localhost:3000/userInfo'
+        redirectTo: `${window.location.protocol}//${window.location.host}/userInfo`
       }
     });
     if (error) alert(error.message)

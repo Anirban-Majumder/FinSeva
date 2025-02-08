@@ -32,7 +32,7 @@ export default function LoginPage() {
       { 
         provider: 'google',
         options: {
-          redirectTo: 'http://localhost:3000/dashboard'
+          redirectTo: `${window.location.protocol}//${window.location.host}/dashboard`
         }
       })
     if (error) alert(error.message)

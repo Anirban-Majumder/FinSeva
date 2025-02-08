@@ -1,8 +1,17 @@
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { Card } from '@nextui-org/react';
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function DocsPage() {
+  const router = useRouter();
+  useEffect(() => {
+    if (!router.isReady) return;
+    if (router.query.code) {
+      router.replace(router.pathname, undefined, { shallow: true });
+    }
+  }, [router.isReady, router.query.code]);
   return (
     <DefaultLayout>
       <style jsx>{`
