@@ -1,103 +1,131 @@
 // @ts-nocheck
-import DefaultLayout from "@/layouts/default"
-import { supabase } from "@/lib/supabaseClient"
-import { useRouter } from "next/router"
+import { useState } from 'react';
+import DefaultLayout from '@/layouts/default';
+import { Card } from '@nextui-org/react';
+import { supabase } from '../../lib/supabaseClient';
+import { useRouter } from 'next/router';
 
-import { useState } from "react"
+const questions = [
+  { id: 1, label: "Gross salary", type: "text" },
+  { id: 2, label: "Income from other source?", type: "radio", options: ["Yes", "No"] },
+  { id: 3, label: "Income from house property?", type: "checkbox" },
+  { id: 4, label: "Net Salary", type: "text" },
+];
 
-export default function TaxInformationForm() {
-  const [formData, setFormData] = useState({
-    grossSalary: "",
-    fdIncome: { has: "no", amount: "" },
-    rentalIncome: "",
-    tds: { has: "no", amount: "" },
-    investments: { has: "no", amount: "" },
-    healthInsurance: { has: "no", amount: "" },
-    educationLoan: { has: "no", amount: "" },
-    homeLoanInterest: { has: "no", amount: "" },
-    hraLta: { has: "no", amount: "" },
-  })
+export default function GetUserInfo() {
+  const router = useRouter();
+  const [responses, setResponses] = useState({});
+  const [error, setError] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(formData)
-  }
+  const handleChange = (id, value) => setResponses({ ...responses, [id]: value });
 
-  const handleRadioChange = (name, value) => {
-    setFormData({ ...formData, [name]: value })
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const grossSalary = responses[1];
+    const incomeFromOtherSource = responses[2];
+    const incomeFromHouseProperty = responses[3];
+    const professionalTax = responses[4];
+
+    if (isNaN(grossSalary) || isNaN(professionalTax)) {
+      setError('Gross salary and Professional tax must be valid numbers.');
+      return;
+    }
+    
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('User not found');}
+      const { data, error } = await supabase
+        .from('profiles')
+        .update(
+          {
+            
+            gross_salary: parseInt(grossSalary),
+            income_from_other_sources: incomeFromOtherSource,
+            income_from_house_property: incomeFromHouseProperty,
+            net_salary: parseInt(professionalTax),
+          },
+      ).eq('id', user.id);
+
+      if (error) {
+        setError('Failed to submit data. Please try again.');
+      } else {
+        setError('');
+        setIsSubmitted(true);  // Set the submitted state to true
+        router.push('/dashboard');
+      }
+    } catch (error) {
+      setError('An error occurred. Please try again.');
+    }
+  };
+
+  const renderQuestion = (question) => {
+    switch (question.type) {
+      case "text":
+        return (
+          <input
+            type="text"
+            placeholder={question.label}
+            className="w-full p-2 border border-gray-300 rounded"
+            onChange={(e) => handleChange(question.id, e.target.value)}
+          />
+        );
+      case "radio":
+        return question.options.map((option) => (
+          <div key={option} className="flex items-center">
+            <input
+              type="radio"
+              name={question.label}
+              value={option}
+              className="mr-2"
+              checked={responses[question.id] === option}
+              onChange={() => handleChange(question.id, option)}
+            />
+            <label>{option}</label>
+          </div>
+        ));
+      case "checkbox":
+        return (
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              className="mr-2"
+              checked={responses[question.id] || false}
+              onChange={(e) => handleChange(question.id, e.target.checked)}
+            />
+            <label>{question.label}</label>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <DefaultLayout>
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="w-full max-w-2xl bg-gray-100 dark:bg-gray-900 rounded-3xl shadow-2xl p-10">
-          <h2 className="text-center text-4xl font-extrabold text-green-700 dark:text-green-400 mb-6">HELP US TO KNOW YOU !!</h2>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Gross Salary</label>
-              <input
-                type="number"
-                placeholder="Enter amount"
-                className="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white shadow-md focus:ring-2 focus:ring-green-500"
-                value={formData.grossSalary}
-                onChange={(e) => setFormData({ ...formData, grossSalary: e.target.value })}
-              />
-            </div>
-
-            {[
-              { label: "Income from FDs", name: "fdIncome" },
-              { label: "TDS (Tax Deducted at Source)", name: "tds" },
-              { label: "Total Investments in PF PPF LIC", name: "investments" },
-              { label: "Health Insurance Premium", name: "healthInsurance" },
-              { label: "Education Loan", name: "educationLoan" },
-              { label: "Home Loan Interest", name: "homeLoanInterest" },
-              { label: "HRA LTA (Leave Travel Allowance)", name: "hraLta" },
-            ].map(({ label, name }) => (
-              <div key={name} className="bg-gray-200 dark:bg-gray-800 p-4 rounded-xl shadow-lg">
-                <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">{label}</label>
-                <div className="flex items-center space-x-6">
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="radio"
-                      value="yes"
-                      checked={formData[name].has === "yes"}
-                      onChange={() => handleRadioChange(name, { has: "yes", amount: formData[name].amount })}
-                      className="w-5 h-5 text-green-500 focus:ring-green-400"
-                    />
-                    <span className="text-gray-700 dark:text-gray-300">Yes</span>
-                  </label>
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="radio"
-                      value="no"
-                      checked={formData[name].has === "no"}
-                      onChange={() => handleRadioChange(name, { has: "no", amount: "" })}
-                      className="w-5 h-5 text-green-500 focus:ring-green-400"
-                    />
-                    <span className="text-gray-700 dark:text-gray-300">No</span>
-                  </label>
-                </div>
-                {formData[name].has === "yes" && (
-                  <input
-                    type="number"
-                    placeholder="Enter amount"
-                    value={formData[name].amount}
-                    onChange={(e) => handleRadioChange(name, { has: "yes", amount: e.target.value })}
-                    className="w-full mt-2 p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white shadow-md focus:ring-2 focus:ring-green-500"
-                  />
-                )}
+      <div className="flex flex-col items-center justify-center min-h-screen text-white">
+        <h1 className="flex flex-col justify-center text-4xl font-bold text-zinc-400 my-8">HELP US TO KNOW YOU !!</h1>
+        <Card className="max-w-xl w-full bg-[#EEF2FF] text-black p-6 shadow-lg rounded">
+          <h2 className="text-2xl font-bold mb-6 text-[#37b50c]"><i>Fill Your Information</i></h2>
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {questions.map((question) => (
+              <div key={question.id}>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{question.label}</label>
+                {renderQuestion(question)}
               </div>
             ))}
-
-            <button
-              type="submit"
-              className="w-full p-4 text-white font-bold bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 rounded-xl shadow-lg text-lg transition-all duration-300"
-            >
-              Submit
-            </button>
+            {error && <p className="text-red-500">{error}</p>}
+            <button type="submit" className="bg-[#37b50c] text-white w-full py-3 border-4 border-double rounded-lg border-black-500">Submit</button>
           </form>
-        </div>
+        </Card>
+        {isSubmitted && (
+          <div className="mt-6">
+            <img src="/path-to-your-done-animation.gif" alt="Done" />
+          </div>
+        )}
       </div>
     </DefaultLayout>
-  )
+  );
 }

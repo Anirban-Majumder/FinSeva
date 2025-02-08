@@ -1,4 +1,5 @@
 // @ts-nocheck
+import DefaultLayout from "@/layouts/default";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabaseClient'; // Make sure to configure Supabase client
@@ -28,7 +29,7 @@ const DocsPage = () => {
   const [exemptAllowances, setExemptAllowances] = useState('');
   const [reliefIncome, setReliefIncome] = useState('');
   const [netSalary, setNetSalary] = useState('');
-  const [deductions16, setDeductions16] = useState('');
+  const [deductions16, setDeductions16] = useState('');    
   const [donationsPaid, setDonationsPaid] = useState('');
   const [scientificResearch, setScientificResearch] = useState('');
   const [deduction80GG, setDeduction80GG] = useState('');
