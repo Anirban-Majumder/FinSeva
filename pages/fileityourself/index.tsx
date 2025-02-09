@@ -2,8 +2,7 @@
 import DefaultLayout from "@/layouts/default";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { supabase } from '@/lib/supabaseClient'; // Make sure to configure Supabase client
-import DefaultLayout from "@/layouts/default";
+import { supabase } from '@/lib/supabaseClient';
 import { 
   Card, 
   Input, 
