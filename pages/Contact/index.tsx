@@ -1,7 +1,7 @@
 'use client';
 
 import { NextPage } from "next";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -52,19 +52,12 @@ const ContactPage: NextPage = () => {
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      
-      // Here you would typically make an API call to your backend
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // });
 
       setSubmitStatus({
         type: "success",
         message: "Thank you for your message. We'll get back to you soon!",
       });
-      
+
       // Reset form
       setFormData({
         name: "",
@@ -83,11 +76,25 @@ const ContactPage: NextPage = () => {
     }
   };
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.body.style.height = "100vh";
+    document.documentElement.style.height = "100vh";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+      document.body.style.height = "auto";
+      document.documentElement.style.height = "auto";
+      document.documentElement.style.overflow = "auto";
+    };
+  }, []);
+
   return (
     <DefaultLayout>
       <section className="flex justify-center items-start min-h-screen p-4 md:p-8">
-        <div className="w-full max-w-2xl">
-          <Card className="w-full">
+        <div className="w-full max-w-2xl overflow-y-auto h-full">
+          <Card className="w-full h-full">
             <CardHeader className="flex flex-col gap-2 px-8 pt-8">
               <h1 className="text-3xl font-bold text-center">Contact Us</h1>
               <p className="text-default-500 text-center">
