@@ -2,17 +2,14 @@ import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { Card } from '@nextui-org/react';
 import { useEffect } from "react";
-import { useRouter } from "next/router";
 
 export default function DocsPage() {
-  const router = useRouter();
 
   useEffect(() => {
-    if (!router.isReady) return;
-    if (router.query.code) {
-      router.replace(router.pathname, undefined, { shallow: true });
+    if (typeof window !== 'undefined' && window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
     }
-  }, [router.isReady, router.query.code]);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -27,6 +24,7 @@ export default function DocsPage() {
       document.documentElement.style.overflow = "auto";
     };
   }, []);
+
 
   return (
     <DefaultLayout>

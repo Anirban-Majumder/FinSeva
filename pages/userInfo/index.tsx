@@ -10,6 +10,22 @@ export default function GetUserInfo() {
   const router = useRouter();
   const session = useContext(SessionContext);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!session) return;
+    if (!session.user?.id) {
+      router.push('/login');
+      return;
+    }
+    console.log(session.user.id);
+  }, [router, session]);
+
+
   const [formData, setFormData] = useState({
     grossSalary: "",
     fdIncome: { has: "no", amount: "" },
@@ -28,8 +44,9 @@ export default function GetUserInfo() {
     try {
       const { data, error } = await supabase
         .from('profiles')
-        .update(
+        .upsert(
           {
+            id: session.user.id,
             gross_salary: formData.grossSalary,
             income_from_fd:
               formData.fdIncome.has === "yes" ? formData.fdIncome.amount : null,
@@ -44,12 +61,12 @@ export default function GetUserInfo() {
               formData.homeLoanInterest.has === "yes" ? formData.homeLoanInterest.amount : null,
             hra_lta: formData.hraLta.has === "yes" ? formData.hraLta.amount : null,
           },
-      ).eq('id', session.user.id);
+        ).eq('id', session.user.id);
       if (error) {
         console.error(error);
         alert("An error occurred while saving the data");
       } else {
-        router.push('/dashboard');
+        //router.push('/dashboard');
       }
     } catch (err) {
       console.error(err);
@@ -60,24 +77,6 @@ export default function GetUserInfo() {
   const handleRadioChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
   };
-
-  useEffect(() => {
-    if (!router.isReady) return;
-    if (router.query.code) {
-      router.replace(router.pathname, undefined, { shallow: true });
-    }
-  }, [router.isReady, router.query.code]);
-
-  useEffect(() => {
-    if (!session) return;
-
-    // If no user id is in the session, redirect to login
-    if (!session.user?.id) {
-      router.push('/login');
-      return;
-    }
-    console.log(session.user.id);
-  }, [router, session]);
 
   return (
     <DefaultLayout>
