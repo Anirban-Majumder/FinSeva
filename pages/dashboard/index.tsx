@@ -46,7 +46,7 @@ export default function DocsPage() {
           </div>
           <div className="bg-white bg-opacity-20 backdrop-blur-lg p-8 rounded-lg text-center max-w-lg w-full">
             <div className="flex flex-col md:flex-row gap-4 mt-4">
-              <Card className="text-grey-300 p-4 rounded-lg flex-1 rounded-lg ring-2 ring-blue-500 mx-2">
+              <Card className="text-grey-300 p-4 flex-1 rounded-lg ring-2 ring-blue-500 mx-2">
                 <div className="flex justify-center bg-blue-500">
                   <img src="https://i.postimg.cc/pVkr05Kj/tax-payment-10822996.png" alt="File ITR yourself icon" className="mx-auto mb-2" />
                 </div>
@@ -54,7 +54,7 @@ export default function DocsPage() {
                 <p>It's quick, easy to file your income tax return. Plans start at just ₹0.</p>
                 <a className="mb-2 text-white bg-blue-500 px-4 py-2 rounded inline-block" href="/fileityourself">File ITR Now</a>
               </Card>
-              <Card className="mr-5 text-grey-300 p-4 rounded-lg flex-1 rounded-lg ring-2 ring-green-500 mx-5">
+              <Card className="mr-5 text-grey-300 p-4 flex-1 rounded-lg ring-2 ring-green-500 mx-5">
                 <div className="flex justify-center bg-green-500">
                   <img src="https://i.postimg.cc/GtMp96bK/investor-18178466.png" alt="Get eCA for ITR Filing icon" className="mx-auto mb-2" />
                 </div>

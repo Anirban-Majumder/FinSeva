@@ -66,7 +66,7 @@ export default function GetUserInfo() {
         console.error(error);
         alert("An error occurred while saving the data");
       } else {
-        //router.push('/dashboard');
+        router.push('/dashboard');
       }
     } catch (err) {
       console.error(err);
