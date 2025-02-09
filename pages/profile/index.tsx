@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import DefaultLayout from '@/layouts/default';
 import { Card } from '@nextui-org/react';
 import { supabase } from '../../lib/supabaseClient';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/router';
+import { SessionContext } from "@/lib/usercontext";
+
 
 interface Profile {
   first_name: string;
@@ -17,25 +19,39 @@ interface Profile {
 
 const ProfileWidget = () => {
   const { theme } = useTheme();
+  const session = useContext(SessionContext);
   const router = useRouter();
   const [profile, setProfile] = useState<Profile | null>(null);
 
+
+
   useEffect(() => {
+    if (!session) return;
+
+    // If no user id is in the session, redirect to login
+    if (!session.user?.id) {
+      router.push('/login');
+      return;
+    }
+    console.log(session?.user?.id)
+
     const fetchProfile = async () => {
       const { data, error } = await supabase
         .from('profiles')
-        .select('first_name, last_name, phone, gross_salary, income_from_other_sources, income_from_house_property, professional_tax')
-        .single();
+        .select(
+          'first_name, last_name, phone, gross_salary, income_from_other_sources, income_from_house_property, professional_tax'
+        )
+        .eq('id', session?.user?.id);
 
       if (error || !data) {
         router.push('/login');
       } else {
-        setProfile(data);
+        setProfile(data[0]);
       }
     };
 
     fetchProfile();
-  }, [router]);
+  }, [router, session]);
 
   if (!profile) {
     return null; // Don't show anything if profile doesn't exist
@@ -58,7 +74,7 @@ const ProfileWidget = () => {
               Phone: {profile.phone}
             </p>
             <p className={`mt-2 text-2xl leading-tight font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              Email: xxxxxxxx@gmail.com
+              Email:{session?.user?.email}
             </p>
             <p className={`mt-4 text-2xl ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
               Gross Salary: {profile.gross_salary}
